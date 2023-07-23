@@ -1,7 +1,7 @@
 <div class="flex items-center justify-center h-screen">
-	<mat-card class="shadow-lg p-3">
+	<mat-card class="shadow-lg w-96">
 		<mat-card-content>
-			<div class="flex justify-center mb-6">
+			<div class="flex justify-center mb-6 mt-6">
 				<p class=" text-indigo-800 font-mono font-bold" style="font-size: 20px">PERSONAL LIBRARY MANAGEMENT</p>
 			</div>
 			<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -15,7 +15,7 @@
 					<input matInput formControlName="password" type="password" class="rounded-md border border-gray-300 p-2" placeholder="Enter your password">
 				</mat-form-field>
 				<button mat-flat-button color="primary" class="w-full">Login</button>
-				<p class="pt-6 font-sans">Don't have an account? <span class="text-blue-500 font-sans"><a routerLink="/login">Register</a></span></p>
+				<p class="pt-6 font-sans">Don't have an account? <span class="text-blue-500 font-sans"><a routerLink="/register">Register</a></span></p>
 			</form>
 		</mat-card-content>
 	</mat-card>
