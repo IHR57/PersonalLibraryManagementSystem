@@ -13,8 +13,8 @@ export class RegisterComponent {
   profileForm: any;
   registerForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
-    password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),  
     email: new FormControl('', [Validators.required, Validators.email])
   }, [CustomValidators.MatchValidator('password', 'confirmPassword')]);
  
