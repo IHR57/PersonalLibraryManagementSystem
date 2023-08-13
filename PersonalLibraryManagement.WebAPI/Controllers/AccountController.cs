@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonalLibraryManagement.Application.Identity;
 using PersonalLibraryManagement.Application.Models.Identity;
 
@@ -16,6 +17,7 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegistrationRequest registrationRequest)
         {
             var result = await authService.Register(registrationRequest);
@@ -24,8 +26,8 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(AuthRequest authRequest)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] AuthRequest authRequest)
         {
             if (ModelState.IsValid == false)
             {
