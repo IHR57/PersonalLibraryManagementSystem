@@ -9,21 +9,24 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace HR.LeaveManagement.Identity.Services
+namespace PersonalLibraryManagment.Infrastructure.Identity.Services
 {
     public class AuthService : IAuthService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
 
         public AuthService(UserManager<ApplicationUser> userManager,
             IOptions<JwtSettings> jwtSettings,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public async Task<AuthResponse> Login(AuthRequest request)
@@ -70,7 +73,18 @@ namespace HR.LeaveManagement.Identity.Services
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Employee");
+                if (await _roleManager.FindByNameAsync("User") is null)
+                {
+                    ApplicationRole applicateionRole = new ApplicationRole
+                    {
+                        Name = "User"
+                    };
+
+                    await _roleManager.CreateAsync(applicateionRole);
+                }
+
+                await _userManager.AddToRoleAsync(user, "User");
+
                 return new RegistrationResponse() { UserId = user.Id };
             }
             else

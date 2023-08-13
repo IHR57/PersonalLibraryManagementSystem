@@ -5,7 +5,7 @@ using PersonalLibraryManagement.Application.Models.Identity;
 using PersonalLibraryManagment.Infrastructure.Identity.Models;
 using System.Security.Claims;
 
-namespace HR.LeaveManagement.Identity.Services
+namespace PersonalLibraryManagment.Infrastructure.Identity.Services
 {
     public class UserService : IUserService
     {

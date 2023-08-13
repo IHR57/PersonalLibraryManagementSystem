@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.20">
       <PrivateAssets>all</PrivateAssets>
@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PersonalLibraryManagement.Application\PersonalLibraryManagement.Application.csproj" />
+    <ProjectReference Include="..\PersonalLibraryManagement.Infrastructure\PersonalLibraryManagement.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

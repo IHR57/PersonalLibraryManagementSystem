@@ -1,6 +1,6 @@
-﻿using HR.LeaveManagement.Identity.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,9 +9,10 @@ using PersonalLibraryManagement.Application.Identity;
 using PersonalLibraryManagement.Application.Models.Identity;
 using PersonalLibraryManagment.Infrastructure.Identity.DbContext;
 using PersonalLibraryManagment.Infrastructure.Identity.Models;
+using PersonalLibraryManagment.Infrastructure.Identity.Services;
 using System.Text;
 
-namespace HR.LeaveManagement.Identity
+namespace PersonalLibraryManagement.Identity
 {
     public static class IdentityServicesRegistration
     {
@@ -22,8 +23,20 @@ namespace HR.LeaveManagement.Identity
             services.AddDbContext<LibraryManagementIdentityDbContext>(options =>
                options.UseSqlServer(configuration.GetConnectionString("PersonalLibraryManagmentConnectionString")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<LibraryManagementIdentityDbContext>().AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = true;
+
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredUniqueChars = 4;
+            })
+            .AddEntityFrameworkStores<LibraryManagementIdentityDbContext>()
+            .AddDefaultTokenProviders()
+            .AddUserStore<UserStore<ApplicationUser, ApplicationRole, LibraryManagementIdentityDbContext, Guid>>()
+            .AddRoleStore<RoleStore<ApplicationRole, LibraryManagementIdentityDbContext, Guid>>();
 
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUserService, UserService>();

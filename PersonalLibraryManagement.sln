@@ -5,21 +5,21 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalLibraryManagement.WebAPI", "PersonalLibraryManagement.WebAPI\PersonalLibraryManagement.WebAPI.csproj", "{890EB0C1-82B1-421F-B544-615DC6B6326A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalLibraryManagement.Domain", "PersonalLibraryManagement.Core\PersonalLibraryManagement.Domain.csproj", "{818ADD57-A26D-4ADF-96B1-5F5CCAB189D2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalLibraryManagement.Infrastructure", "PersonalLibraryManagement.Infrastructure\PersonalLibraryManagement.Infrastructure.csproj", "{00C3D673-2351-4B66-93F9-011D2F38AC49}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E9988187-FBAE-4E9C-A2EE-9C0F1015022F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalLibraryManagement.Application", "PersonalLibraryManagement.Application\PersonalLibraryManagement.Application.csproj", "{7CDD82EB-224D-428D-ABD2-4D08F6E7AE52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalLibraryManagement.Application", "PersonalLibraryManagement.Application\PersonalLibraryManagement.Application.csproj", "{7CDD82EB-224D-428D-ABD2-4D08F6E7AE52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8304470B-73B5-4442-9532-70F89941C1C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{11B10D17-479D-4982-96F6-BEC2A7208A9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalLibraryManagement.Persistence", "PersonalLibraryManagement.Persistence\PersonalLibraryManagement.Persistence.csproj", "{0557E4E1-5161-4BF6-8291-1810CB93D06B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalLibraryManagement.Persistence", "PersonalLibraryManagement.Persistence\PersonalLibraryManagement.Persistence.csproj", "{0557E4E1-5161-4BF6-8291-1810CB93D06B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalLibraryManagement.Identity", "PersonalLibraryManagement.Identity\PersonalLibraryManagement.Identity.csproj", "{24E03DFA-20A9-4BA3-A8A6-C256E36A5CE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalLibraryManagement.Identity", "PersonalLibraryManagement.Identity\PersonalLibraryManagement.Identity.csproj", "{24E03DFA-20A9-4BA3-A8A6-C256E36A5CE4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalLibraryManagement.Domain", "PersonalLibraryManagement.Domain\PersonalLibraryManagement.Domain.csproj", "{51E20DC1-9920-43D5-9803-27B4A98DCF28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		{890EB0C1-82B1-421F-B544-615DC6B6326A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{890EB0C1-82B1-421F-B544-615DC6B6326A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{890EB0C1-82B1-421F-B544-615DC6B6326A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{818ADD57-A26D-4ADF-96B1-5F5CCAB189D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{818ADD57-A26D-4ADF-96B1-5F5CCAB189D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{818ADD57-A26D-4ADF-96B1-5F5CCAB189D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{818ADD57-A26D-4ADF-96B1-5F5CCAB189D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{00C3D673-2351-4B66-93F9-011D2F38AC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{00C3D673-2351-4B66-93F9-011D2F38AC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00C3D673-2351-4B66-93F9-011D2F38AC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,17 +47,21 @@ Global
 		{24E03DFA-20A9-4BA3-A8A6-C256E36A5CE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24E03DFA-20A9-4BA3-A8A6-C256E36A5CE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24E03DFA-20A9-4BA3-A8A6-C256E36A5CE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E20DC1-9920-43D5-9803-27B4A98DCF28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E20DC1-9920-43D5-9803-27B4A98DCF28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E20DC1-9920-43D5-9803-27B4A98DCF28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E20DC1-9920-43D5-9803-27B4A98DCF28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{890EB0C1-82B1-421F-B544-615DC6B6326A} = {11B10D17-479D-4982-96F6-BEC2A7208A9C}
-		{818ADD57-A26D-4ADF-96B1-5F5CCAB189D2} = {E9988187-FBAE-4E9C-A2EE-9C0F1015022F}
 		{00C3D673-2351-4B66-93F9-011D2F38AC49} = {8304470B-73B5-4442-9532-70F89941C1C8}
 		{7CDD82EB-224D-428D-ABD2-4D08F6E7AE52} = {E9988187-FBAE-4E9C-A2EE-9C0F1015022F}
 		{0557E4E1-5161-4BF6-8291-1810CB93D06B} = {8304470B-73B5-4442-9532-70F89941C1C8}
 		{24E03DFA-20A9-4BA3-A8A6-C256E36A5CE4} = {8304470B-73B5-4442-9532-70F89941C1C8}
+		{51E20DC1-9920-43D5-9803-27B4A98DCF28} = {E9988187-FBAE-4E9C-A2EE-9C0F1015022F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83C5434C-823E-4653-A126-3931DB77535F}
