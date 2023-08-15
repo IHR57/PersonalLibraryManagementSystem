@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -8,9 +10,9 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 
-
 export class RegisterComponent {
-  profileForm: any;
+  isButtonDisabled: boolean = false;
+
   registerForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -18,10 +20,14 @@ export class RegisterComponent {
     email: new FormControl('', [Validators.required, Validators.email])
   }, [CustomValidators.MatchValidator('password', 'confirmPassword')]);
  
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
   }
+
   get passwordMatchError() {
     return (
       this.registerForm.getError('mismatch') &&
@@ -29,8 +35,31 @@ export class RegisterComponent {
     );
   }
 
-  onSubmit() {
-    console.log("HERE");
+  registerUser() {
+    this.isButtonDisabled = true;
+    this.authService.registerNewUser(this.registerForm.value)
+    .subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.isButtonDisabled = false;
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.openSnackBar("Error Occured", "Failed!")
+        this.isButtonDisabled = false;
+      },
+      complete: () => { 
+        this.isButtonDisabled = false;
+      }
+    })
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      horizontalPosition: "center",
+      verticalPosition: "top",
+      duration: 2000,
+    });
   }
 }
 

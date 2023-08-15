@@ -4,7 +4,7 @@
 			<div class="flex justify-center mb-6 mt-6">
 				<p class=" text-indigo-800 font-mono font-bold" style="font-size: 20px">REGISTRATION</p>
 			</div>
-			<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+			<form [formGroup]="registerForm" (ngSubmit)="registerUser()">
 				<mat-form-field class="w-full">
 					<mat-label>Name</mat-label>
 					<input matInput formControlName="name" class="rounded-md border border-gray-300 p-2" placeholder="Enter your Name">
@@ -26,7 +26,7 @@
 				<div *ngIf="passwordMatchError">
 					Password does not match
 				  </div>
-				<button mat-flat-button color="primary" class="w-full">Register</button>
+				<button mat-flat-button color="primary" class="w-full" [disabled]="isButtonDisabled">Register</button>
                 <p class="pt-6 font-sans">Already have an account? <span class="text-blue-500 font-sans"><a routerLink="/login">Login</a></span></p>
 			</form>
 		</mat-card-content>
