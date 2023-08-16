@@ -29,6 +29,18 @@ export class AuthService {
     )
   }
 
+  login(email: string, password: string): Observable<any> {
+    const loginRequest =  {
+      'email': email,
+      'password': password
+    };
+
+    return this.httpClient.post<any>(this.apiURL + 'Login', loginRequest, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

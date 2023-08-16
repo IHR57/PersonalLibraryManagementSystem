@@ -65,7 +65,7 @@ namespace PersonalLibraryManagment.Infrastructure.Identity.Services
             {
                 Email = request.Email,
                 DisplayName = request.DisplayName,
-                UserName = request.UserName,
+                UserName = request.Email,
                 EmailConfirmed = true
             };
 

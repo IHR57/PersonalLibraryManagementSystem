@@ -16,13 +16,15 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './auth/login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

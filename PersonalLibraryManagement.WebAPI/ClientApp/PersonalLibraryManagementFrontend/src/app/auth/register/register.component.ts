@@ -14,7 +14,7 @@ export class RegisterComponent {
   isButtonDisabled: boolean = false;
 
   registerForm: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
+    displayName: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),  
     email: new FormControl('', [Validators.required, Validators.email])
@@ -41,11 +41,11 @@ export class RegisterComponent {
     .subscribe({
       next: (response: any) => {
         console.log(response);
+        this.openSnackBar("User Registered Successfully", "Success!", "snackbar-success")
         this.isButtonDisabled = false;
       },
       error: (error: any) => {
-        console.log(error);
-        this.openSnackBar("Error Occured", "Failed!")
+        this.openSnackBar("Error Occured", "Failed!", "snackbar-failed")
         this.isButtonDisabled = false;
       },
       complete: () => { 
@@ -54,11 +54,12 @@ export class RegisterComponent {
     })
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string, panelClass: string) {
     this.snackBar.open(message, action, {
       horizontalPosition: "center",
       verticalPosition: "top",
       duration: 2000,
+      panelClass: [ panelClass ]
     });
   }
 }
