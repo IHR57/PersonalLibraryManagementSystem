@@ -33,6 +33,7 @@ export class LoginComponent {
       next: (response: any) => {
         console.log(response);
         this.openSnackBar("User Logged In Successfully", "Success!", "snackbar-success")
+        localStorage.setItem('PLMUserInfo', response);
         this.isLoginButtonDisabled = false;
         this.router.navigate(['/dashboard']);
 

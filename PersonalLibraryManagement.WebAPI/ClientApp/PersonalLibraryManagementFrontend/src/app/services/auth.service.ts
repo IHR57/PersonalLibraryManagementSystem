@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/User';
 
 const httpOptions = {
@@ -16,12 +16,20 @@ const httpOptions = {
 
 export class AuthService {
 
+  isAuthenticated = new BehaviorSubject<boolean>(false);
+
   private apiURL = "https://localhost:7278/api/Account/";
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
+  logout() {
+    // Perform logout logic here
+    console.log("Here I AM");
+    this.isAuthenticated.next(false);
+  }
+  
   registerNewUser(user: User): Observable<any> {
     return this.httpClient.post<User>(this.apiURL + 'Register', user, httpOptions)
     .pipe(
@@ -37,6 +45,9 @@ export class AuthService {
 
     return this.httpClient.post<any>(this.apiURL + 'Login', loginRequest, httpOptions)
     .pipe(
+      tap(() => {
+        this.isAuthenticated.next(true);
+      }),
       catchError(this.handleError)
     )
   }
