@@ -9,10 +9,12 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
     public class AccountController : Controller
     {
         private readonly IAuthService authService;
+        private readonly ILogger<AccountController> logger;
 
-        public AccountController(IAuthService authService)
+        public AccountController(IAuthService authService, ILogger<AccountController> logger)
         {
             this.authService = authService;
+            this.logger = logger;
         }
 
 
@@ -29,6 +31,8 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] AuthRequest authRequest)
         {
+            logger.LogInformation("Login Api Executing ...");
+
             if (ModelState.IsValid == false)
             {
                 return BadRequest();

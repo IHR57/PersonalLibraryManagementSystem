@@ -1,4 +1,5 @@
 using PersonalLibraryManagement.Identity;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,11 +10,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var configuration = builder.Configuration;
-
-builder.Services.AddIdentityServices(configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 builder.Services.AddAuthorization();
+
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 builder.Services.AddCors(options =>
 {
@@ -21,8 +28,8 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder.WithOrigins("https://localhost:44351", "http://localhost:4200")
-                             .AllowAnyHeader()
-                             .AllowAnyMethod();
+            .AllowAnyHeader()
+            .AllowAnyMethod();
         });
 });
 
