@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PersonalLibraryManagement.Application\PersonalLibraryManagement.Application.csproj" />
     <ProjectReference Include="..\PersonalLibraryManagement.Identity\PersonalLibraryManagement.Identity.csproj" />
+    <ProjectReference Include="..\PersonalLibraryManagement.Persistence\PersonalLibraryManagement.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

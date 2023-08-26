@@ -1,9 +1,8 @@
-﻿using PersonalLibraryManagement.Domain.Entities.Base;
-using PersonalLibraryManagement.Domain.ValueObjects;
+﻿using PersonalLibraryManagement.Domain.ValueObjects;
 
-namespace PersonalLibraryManagement.Domain.Entities
+namespace PersonalLibraryManagement.Application.DTOs
 {
-    public class Book : BaseEntity
+    public class BookDTO
     {
         public string Name { get; set; }
         public string Category { get; set; }
@@ -16,7 +15,6 @@ namespace PersonalLibraryManagement.Domain.Entities
         public double PersonalRating { get; set; }
         public DateTime FinishedDate { get; set; }
         public string PersonalNotes { get; set; }
-        public bool IsMarkedToDelete { get; set; }
         public ReadStatus Status { get; set; }
     }
 }
