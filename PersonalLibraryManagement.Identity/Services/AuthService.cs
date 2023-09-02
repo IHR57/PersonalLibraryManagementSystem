@@ -108,7 +108,7 @@ namespace PersonalLibraryManagment.Infrastructure.Identity.Services
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("uid", user.Id.ToString())
@@ -126,6 +126,7 @@ namespace PersonalLibraryManagment.Infrastructure.Identity.Services
                claims: claims,
                expires: DateTime.Now.AddMinutes(_jwtSettings.DurationInMinutes),
                signingCredentials: signingCredentials);
+
             return jwtSecurityToken;
         }
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -20,6 +20,10 @@
     <ProjectReference Include="..\PersonalLibraryManagement.Application\PersonalLibraryManagement.Application.csproj" />
     <ProjectReference Include="..\PersonalLibraryManagement.Identity\PersonalLibraryManagement.Identity.csproj" />
     <ProjectReference Include="..\PersonalLibraryManagement.Persistence\PersonalLibraryManagement.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CustomMiddlewares\" />
   </ItemGroup>
 
 </Project>

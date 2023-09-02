@@ -1,10 +1,11 @@
-﻿using PersonalLibraryManagement.Domain.Entities;
+﻿using PersonalLibraryManagement.Application.DTOs;
+using PersonalLibraryManagement.Domain.Entities;
 
 namespace PersonalLibraryManagement.Application.Contracts
 {
     public interface IBookService
     {
         Task AddBookAsync(Book book);
-        Task<IReadOnlyList<Book>> GetAllUserBooksAsync(Guid userId);
+        Task<QueryPaginationResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending);
     }
 }

@@ -8,7 +8,6 @@ namespace PersonalLibraryManagement.Application.DTOs
         public string Category { get; set; }
         public string Writer { get; set; }
         public string Thumbnail { get; set; }
-        public Guid UserId { get; set; }
         public DateTime BoughtDate { get; set; }
         public double BuyingPrice { get; set; }
         public bool IsFavourite { get; set; }
