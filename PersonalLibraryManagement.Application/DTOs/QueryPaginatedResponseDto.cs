@@ -1,6 +1,6 @@
 ﻿namespace PersonalLibraryManagement.Application.DTOs
 {
-    public class QueryPaginationResponseDto
+    public class QueryPaginatedResponseDto
     {
         public long Total { get; set; }
         public int Page { get; set; }

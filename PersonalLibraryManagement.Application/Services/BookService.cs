@@ -27,7 +27,7 @@ namespace PersonalLibraryManagement.Application.Services
             await bookRepository.CreateAsync(book);
         }
 
-        public async Task<QueryPaginationResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending)
+        public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending)
         {
             Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
 

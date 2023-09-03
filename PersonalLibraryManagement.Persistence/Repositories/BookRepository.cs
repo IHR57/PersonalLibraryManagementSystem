@@ -3,7 +3,7 @@ using PersonalLibraryManagement.Application.Contracts.Persistence;
 using PersonalLibraryManagement.Application.DTOs;
 using PersonalLibraryManagement.Domain.Entities;
 using PersonalLibraryManagement.Infrastructure.Persistence.DatabaseContext;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Linq.Expressions;
 
 namespace PersonalLibraryManagement.Persistence.Repositories
 {
@@ -13,22 +13,20 @@ namespace PersonalLibraryManagement.Persistence.Repositories
         {
         }
 
-        public async Task<QueryPaginationResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending, Guid id)
+        public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending, Guid id)
         {
             IQueryable<Book> query = context.Books;
 
-            if (!string.IsNullOrWhiteSpace(sortBy))
+            Expression<Func<Book, object>> keySelector = sortBy.ToLower() switch
             {
-                var propertyInfo = typeof(Book).GetProperty(sortBy,
-                    System.Reflection.BindingFlags.IgnoreCase | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                "name" => book => book.Name,
+                "createdDate" => book => book.CreatedDate,
+                "boughtDate" => book => book.BoughtDate,
+                "finishedDate" => book => book.FinishedDate,
+                _ => book => book.Id
+            };
 
-                if (propertyInfo != null)
-                {
-                    query = ascending
-                    ? query.OrderBy(x => propertyInfo.GetValue(x, null))
-                        : query.OrderByDescending(x => propertyInfo.GetValue(x, null));
-                }
-            }
+            query = ascending ? query.OrderBy(keySelector) : query.OrderByDescending(keySelector);
 
             long totalItems = await query.CountAsync();
 
@@ -36,7 +34,7 @@ namespace PersonalLibraryManagement.Persistence.Repositories
 
             var books = await query.ToListAsync();
 
-            QueryPaginationResponseDto queryPaginationResponseDto = new QueryPaginationResponseDto()
+            QueryPaginatedResponseDto queryPaginationResponseDto = new QueryPaginatedResponseDto()
             {
                 Total = totalItems,
                 Page = index,

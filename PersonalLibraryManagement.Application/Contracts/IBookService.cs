@@ -6,6 +6,6 @@ namespace PersonalLibraryManagement.Application.Contracts
     public interface IBookService
     {
         Task AddBookAsync(Book book);
-        Task<QueryPaginationResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending);
+        Task<QueryPaginatedResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending);
     }
 }
