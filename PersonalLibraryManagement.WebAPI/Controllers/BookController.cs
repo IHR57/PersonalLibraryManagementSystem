@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using PersonalLibraryManagement.Application.Contracts;
 using PersonalLibraryManagement.Application.DTOs;
 using PersonalLibraryManagement.Domain.Entities;
-using System.Security.Claims;
 
 namespace PersonalLibraryManagement.WebAPI.Controllers
 {
