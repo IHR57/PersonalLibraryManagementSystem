@@ -27,7 +27,17 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
 
             await bookService.AddBookAsync(book);
 
-            return NoContent();
+            return Ok("Book Added Successfully");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateBook([FromBody] BookDTO bookDto)
+        {
+            Book book = mapper.Map<Book>(bookDto);
+
+            await bookService.UpdateBookAsync(book);
+
+            return Ok("Book Updated Successfully");
         }
 
         [HttpGet]
