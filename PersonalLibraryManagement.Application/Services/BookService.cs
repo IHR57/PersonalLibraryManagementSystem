@@ -39,11 +39,11 @@ namespace PersonalLibraryManagement.Application.Services
             await bookRepository.UpdateAsync(book);
         }
 
-        public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending)
+        public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter)
         {
             Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
 
-            return await bookRepository.GetAllBooksByUserId(index, pageSize, sortBy, ascending, userId);
+            return await bookRepository.GetAllBooksByUserId(queryFilter, userId);
         }
     }
 }

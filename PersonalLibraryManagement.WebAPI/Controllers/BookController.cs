@@ -41,13 +41,9 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBooks(
-            [FromQuery] int index = 1, 
-            [FromQuery] int pageSize = 10, 
-            [FromQuery] string sortBy = "CreatedDate", 
-            [FromQuery] bool ascending = false)
+        public async Task<IActionResult> GetAllBooks([FromQuery] GetAllBooksQueryFilter queryFilter)
         {
-            QueryPaginatedResponseDto result = await bookService.GetAllBooksByUserId(index, pageSize, sortBy, ascending);
+            QueryPaginatedResponseDto result = await bookService.GetAllBooksByUserId(queryFilter);
 
             return Ok(result);
         }

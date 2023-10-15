@@ -7,6 +7,6 @@ namespace PersonalLibraryManagement.Application.Contracts
     {
         Task AddBookAsync(Book book);
         Task UpdateBookAsync(Book book);
-        Task<QueryPaginatedResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending);
+        Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter);
     }
 }

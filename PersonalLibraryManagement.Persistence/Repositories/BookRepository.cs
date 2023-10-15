@@ -13,11 +13,11 @@ namespace PersonalLibraryManagement.Persistence.Repositories
         {
         }
 
-        public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(int index, int pageSize, string sortBy, bool ascending, Guid id)
+        public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter, Guid id)
         {
             IQueryable<Book> query = context.Books;
 
-            Expression<Func<Book, object>> keySelector = sortBy.ToLower() switch
+            Expression<Func<Book, object>> keySelector = queryFilter.SortBy.ToLower() switch
             {
                 "name" => book => book.Name,
                 "createdDate" => book => book.CreatedDate,
@@ -26,19 +26,19 @@ namespace PersonalLibraryManagement.Persistence.Repositories
                 _ => book => book.Id
             };
 
-            query = ascending ? query.OrderBy(keySelector) : query.OrderByDescending(keySelector);
+            query = queryFilter.Ascending ? query.OrderBy(keySelector) : query.OrderByDescending(keySelector)
+                .Skip((queryFilter.PageIndex) * queryFilter.PageSize)
+                .Take(queryFilter.PageSize);
 
             long totalItems = await query.CountAsync();
-
-            query = query.Skip((index - 1) * pageSize).Take(pageSize);
 
             var books = await query.ToListAsync();
 
             QueryPaginatedResponseDto queryPaginationResponseDto = new QueryPaginatedResponseDto()
             {
                 Total = totalItems,
-                Page = index,
-                PageSize = pageSize,
+                Page = queryFilter.PageIndex,
+                PageSize = queryFilter.PageSize,
                 Items = books
             };
 
