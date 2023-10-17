@@ -6,7 +6,7 @@ namespace PersonalLibraryManagement.Application.DTOs
     public class GetAllBooksQueryFilter : BaseFilter
     {
         public bool IsFavourite { get; set; }
-        public ReadStatus ReadStatus { get; set; }
+        public ReadStatus? ReadStatus { get; set; }
         public string Writer { get; set; }
         public string Category { get; set; }
         public DateTime? BoughtDateStart { get; set; }
