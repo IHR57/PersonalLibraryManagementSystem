@@ -31,9 +31,9 @@ export class LoginComponent {
     this.authService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value)
     .subscribe({
       next: (response: any) => {
-        console.log(response);
         this.openSnackBar("User Logged In Successfully", "Success!", "snackbar-success")
         localStorage.setItem('PLMUserInfo', response);
+        localStorage.setItem("AccessToken", response.token);
         this.isLoginButtonDisabled = false;
         this.router.navigate(['/dashboard']);
 
