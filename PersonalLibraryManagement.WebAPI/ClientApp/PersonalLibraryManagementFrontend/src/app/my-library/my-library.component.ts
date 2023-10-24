@@ -9,6 +9,28 @@ import { ReadStatus } from '../models/ReadStatus';
   styleUrls: ['./my-library.component.scss']
 })
 export class MyLibraryComponent {
+  sortBy: string = "Bought Date";
+  sortByFields: string[] = ['Name', 'Writer', 'Bought Date', 'Finished Date'];
+  categories: any = [
+    {name: 'Fiction', completed: false},
+    {name: 'History', completed: false},
+    {name: 'Novel', completed: false},
+    {name: 'Novel', completed: false},
+    {name: 'Novel', completed: false},
+    {name: 'Novel', completed: false},
+    {name: 'Novel', completed: false},
+  ];
+
+  writers: any = [
+    {name: 'George Orwell', completed: false},
+    {name: 'Harper Lee', completed: false},
+    {name: 'Syed Mujtaba Ali', completed: false},
+    {name: 'Zamal Nazrul Islam', completed: false},
+    {name: 'Ibn Khathir', completed: false},
+    {name: 'Yasir Qadhi', completed: false},
+    {name: 'Khandhakar Abdullah Jahangir (RA)', completed: false},
+  ];
+
   booklist: Book[] = [
     {
       name: "1984",
@@ -39,8 +61,8 @@ export class MyLibraryComponent {
       userId: ""
     },
     {
-      name: "Animal Farm",
-      writer: "George Orwell",
+      name: "To Kill a MockingBird",
+      writer: "Harper Lee",
       category: "Fiction",
       boughtDate: "21-10-2023",
       finishedDate: "25-10-2023",
@@ -53,7 +75,7 @@ export class MyLibraryComponent {
       userId: ""
     },
     {
-      name: "Animal Farm",
+      name: "The Old Man and Sea",
       writer: "George Orwell",
       category: "Fiction",
       boughtDate: "21-10-2023",
