@@ -14,13 +14,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatSliderModule } from '@angular/material/slider'
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { LoginComponent } from './auth/login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyLibraryComponent } from './my-library/my-library.component';
+import { AddBookDialogComponent } from './my-library/add-book-dialog/add-book-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,8 @@ import { MyLibraryComponent } from './my-library/my-library.component';
     HeaderComponent,
     RegisterComponent,
     DashboardComponent,
-    MyLibraryComponent
+    MyLibraryComponent,
+    AddBookDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +51,11 @@ import { MyLibraryComponent } from './my-library/my-library.component';
     MatSnackBarModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatSliderModule
+    MatSliderModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

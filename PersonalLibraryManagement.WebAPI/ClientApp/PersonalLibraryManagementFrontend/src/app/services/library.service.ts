@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Book } from '../models/Book';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,6 +24,14 @@ export class LibraryService {
 
   getAllBooks(pageIndex: number, pageSize: number): Observable<any> {
     return this.httpClient.get(`${this.apiURL}/GetAllBooks?PageIndex=${pageIndex}&PageSize=${pageSize}&SortBy=createdDate&PriceStart=0&PriceEnd=10000`, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  addNewBook(book: any): Observable<any> {
+    console.log(book);
+    return this.httpClient.post<any>(this.apiURL + '/CreateBook', book, httpOptions)
     .pipe(
       catchError(this.handleError)
     )

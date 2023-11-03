@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Json;
 using PersonalLibraryManagement.Application;
 using PersonalLibraryManagement.Identity;
 using PersonalLibraryManagement.Infrastructure.Persistence;
@@ -12,6 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.PropertyNameCaseInsensitive = false;
+});
 
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);

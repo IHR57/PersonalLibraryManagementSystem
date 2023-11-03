@@ -1,0 +1,73 @@
+<h1 mat-dialog-title class="text-sm font-bold leading-relaxed"><span class="font-mono font-bold">New Book</span></h1>
+<div mat-dialog-content>
+  <form [formGroup]="bookForm" (ngSubmit)="addNewBook()" class="font-mono">
+    <mat-form-field class="w-full h-auto font-mono">
+      <mat-label>Book Name</mat-label>
+      <input matInput formControlName="name" class="rounded-md border border-gray-300 p-2"
+        placeholder="Enter Book Name">
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Writer</mat-label>
+      <input matInput formControlName="writer" class="rounded-md border border-gray-300 p-2"
+        placeholder="Enter Writer Name">
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Category</mat-label>
+      <input matInput formControlName="category" class="rounded-md border border-gray-300 p-2"
+        placeholder="Enter Book Category">
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" class="rounded-md border border-gray-300 p-2"
+        placeholder="Book Description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Bought Date</mat-label>
+      <input matInput [matDatepicker]="boughtDatePicker" formControlName="boughtDate">
+      <mat-datepicker-toggle matIconSuffix [for]="boughtDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #boughtDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Finished Date</mat-label>
+      <input matInput [matDatepicker]="finishedDatePicker" formControlName="finishedDate">
+      <mat-datepicker-toggle matIconSuffix [for]="finishedDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #finishedDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Buying Price</mat-label>
+      <input matInput formControlName="buyingPrice" type="number" class="rounded-md border border-gray-300 p-2"
+        placeholder="Enter Buying Price">
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Read Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="1">Pending</mat-option>
+        <mat-option value="2">In Progress</mat-option>
+        <mat-option value="3">Read</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Personal Rating</mat-label>
+      <input matInput formControlName="personalRating" type="number" class="rounded-md border border-gray-300 p-2"
+        placeholder="Your Rating out of 10">
+    </mat-form-field>
+
+    <mat-form-field class="w-full font-mono">
+      <mat-label>Personal Notes</mat-label>
+      <textarea matInput formControlName="personalNotes" class="rounded-md border border-gray-300 p-2"
+        placeholder="Your Notes"></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div class="flex flex-row-reverse gap-3 p-4 mr-2">
+  <button mat-flat-button color="primary" (click)="addNewBook()" class="md:basis-1/4 sm:basis-1/2 font-mono">Submit</button>
+  <button mat-stroked-button class="md:basis-1/4 sm:basis-1/2 font-mono" mat-dialog-close>Cancel</button>
+</div>

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { LibraryService } from '../services/library.service';
 import { Book } from '../models/Book';
 import { ReadStatus } from '../models/ReadStatus';
+import { MatDialog } from '@angular/material/dialog';
+import { AddBookDialogComponent } from './add-book-dialog/add-book-dialog.component';
 
 @Component({
   selector: 'app-my-library',
@@ -40,7 +42,7 @@ export class MyLibraryComponent {
       finishedDate: "25-10-2023",
       isFavourite: true,
       buyingPrice: 120,
-      readStatus: ReadStatus.InProgress,
+      status: ReadStatus.InProgress,
       personalNotes: "",
       personalRating: 8,
       thumbnail: "",
@@ -54,7 +56,7 @@ export class MyLibraryComponent {
       finishedDate: "25-10-2023",
       isFavourite: true,
       buyingPrice: 120,
-      readStatus: ReadStatus.InProgress,
+      status: ReadStatus.InProgress,
       personalNotes: "",
       personalRating: 8,
       thumbnail: "",
@@ -68,7 +70,7 @@ export class MyLibraryComponent {
       finishedDate: "25-10-2023",
       isFavourite: true,
       buyingPrice: 120,
-      readStatus: ReadStatus.InProgress,
+      status: ReadStatus.InProgress,
       personalNotes: "",
       personalRating: 8,
       thumbnail: "",
@@ -82,7 +84,21 @@ export class MyLibraryComponent {
       finishedDate: "25-10-2023",
       isFavourite: true,
       buyingPrice: 120,
-      readStatus: ReadStatus.InProgress,
+      status: ReadStatus.InProgress,
+      personalNotes: "",
+      personalRating: 8,
+      thumbnail: "",
+      userId: ""
+    },
+    {
+      name: "7 Habits of Highly Effective People",
+      writer: "George Orwell",
+      category: "Motivation",
+      boughtDate: "21-10-2023",
+      finishedDate: "25-10-2023",
+      isFavourite: true,
+      buyingPrice: 120,
+      status: ReadStatus.InProgress,
       personalNotes: "",
       personalRating: 8,
       thumbnail: "",
@@ -92,12 +108,18 @@ export class MyLibraryComponent {
 
   constructor(
     private libraryService: LibraryService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    //this.getAllBooks();
+    this.getAllBooks();
   }
 
+  openDialog() {
+    this.dialog.open(AddBookDialogComponent, {
+      width: "50%"
+    });
+  }
 
   getAllBooks() {
     this.libraryService.getAllBooks(0, 10)

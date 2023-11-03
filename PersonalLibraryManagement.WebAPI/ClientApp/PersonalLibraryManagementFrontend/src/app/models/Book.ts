@@ -12,5 +12,5 @@ export interface Book {
     personalRating: number;
     finishedDate: string;
     personalNotes: string;
-    readStatus: ReadStatus
+    status: ReadStatus
 }
