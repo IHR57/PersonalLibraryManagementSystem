@@ -10,27 +10,27 @@
       </div>
       <div [ngClass]="{'hidden': !showMenu, 'flex': showMenu}" class="lg:flex lg:flex-grow items-center">
         <ul class="flex flex-col lg:flex-row list-none ml-auto">
-          <li class="nav-item" *ngIf="authService.isAuthenticated.value">
+          <li *ngIf="isLoggedIn" class="nav-item" >
             <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" routerLink="/my-library">
               <i class="fa-solid fa-book-open-reader text-lg leading-lg text-white opacity-75"></i><span class="ml-2">My-Library</span>
             </a>
           </li>
-          <li class="nav-item" *ngIf="authService.isAuthenticated.value">
+          <li *ngIf="isLoggedIn" class="nav-item" >
             <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" routerLink="/dashboard">
               <i class="fa-solid fa-chart-simple text-lg leading-lg text-white opacity-75"></i><span class="ml-2">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item" *ngIf="authService.isAuthenticated.value == false">
+          <li *ngIf="!isLoggedIn" class="nav-item" >
             <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" routerLink="/register">
               <i class="fa-solid fa-user-plus text-lg leading-lg text-white opacity-75"></i><span class="ml-2">Register</span>
             </a>
           </li>
-          <li class="nav-item" *ngIf="authService.isAuthenticated.value == false">
+          <li *ngIf="!isLoggedIn" class="nav-item" >
             <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" routerLink="/login">
               <i class="fa-solid fa-arrow-right-to-bracket text-lg leading-lg text-white opacity-75"></i><span class="ml-2">Login</span>
             </a>
           </li>
-          <li *ngIf="authService.isAuthenticated.value" class="nav-item">
+          <li *ngIf="isLoggedIn" class="nav-item">
             <button class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" (click)="logout()">
               <i class="fa-solid fa-arrow-right-to-bracket text-lg leading-lg text-white opacity-75"></i><span class="ml-2">Logout</span>
             </button>

@@ -26,6 +26,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyLibraryComponent } from './my-library/my-library.component';
 import { AddBookDialogComponent } from './my-library/add-book-dialog/add-book-dialog.component';
+import { httpInterceptorProviders } from './_helpers/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { AddBookDialogComponent } from './my-library/add-book-dialog/add-book-di
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

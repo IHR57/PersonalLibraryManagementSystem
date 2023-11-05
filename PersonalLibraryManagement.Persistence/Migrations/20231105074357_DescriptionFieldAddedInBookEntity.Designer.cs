@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalLibraryManagement.Infrastructure.Persistence.DatabaseContext;
 
@@ -11,9 +12,10 @@ using PersonalLibraryManagement.Infrastructure.Persistence.DatabaseContext;
 namespace PersonalLibraryManagement.Persistence.Migrations
 {
     [DbContext(typeof(PersonalLibraryDatabaseContext))]
-    partial class PersonalLibraryDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231105074357_DescriptionFieldAddedInBookEntity")]
+    partial class DescriptionFieldAddedInBookEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -15,12 +15,12 @@ export class AddBookDialogComponent {
     category: new FormControl('', Validators.required),
     writer: new FormControl('', Validators.required),
     description: new FormControl(''),
-    boughtDate: new FormControl(''),
-    finishedDate: new FormControl(''),
+    boughtDate: new FormControl(),
+    finishedDate: new FormControl(),
     buyingPrice: new FormControl(0),
     personalRating: new FormControl(0),
     personalNotes: new FormControl(''),
-    status: new FormControl(1)
+    status: new FormControl()
   });
 
   constructor(

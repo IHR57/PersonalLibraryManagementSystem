@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +21,14 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
+    if(this.storageService.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   login() {
@@ -32,11 +37,9 @@ export class LoginComponent {
     .subscribe({
       next: (response: any) => {
         this.openSnackBar("User Logged In Successfully", "Success!", "snackbar-success")
-        localStorage.setItem('PLMUserInfo', response);
-        localStorage.setItem("AccessToken", response.token);
+        this.storageService.saveUser(response);
         this.isLoginButtonDisabled = false;
-        this.router.navigate(['/dashboard']);
-
+        window.location.reload();
       },
       error: (error: any) => {
         this.openSnackBar("Error Occured", "Failed!", "snackbar-failed")

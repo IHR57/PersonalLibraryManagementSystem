@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/User';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    Authorization: 'my-auth-token'
+    'Content-Type':  'application/json'
   })
 };
 
@@ -15,9 +14,6 @@ const httpOptions = {
 })
 
 export class AuthService {
-
-  isAuthenticated = new BehaviorSubject<boolean>(false);
-
   private apiURL = "https://localhost:7278/api/Account/";
 
   constructor(
@@ -27,7 +23,6 @@ export class AuthService {
   logout() {
     // Perform logout logic here
     console.log("Here I AM");
-    this.isAuthenticated.next(false);
   }
   
   registerNewUser(user: User): Observable<any> {
@@ -45,9 +40,6 @@ export class AuthService {
 
     return this.httpClient.post<any>(this.apiURL + 'Login', loginRequest, httpOptions)
     .pipe(
-      tap(() => {
-        this.isAuthenticated.next(true);
-      }),
       catchError(this.handleError)
     )
   }

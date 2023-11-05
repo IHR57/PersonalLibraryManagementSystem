@@ -6,7 +6,7 @@ import { Book } from '../models/Book';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    Authorization: `Bearer ${localStorage.getItem("AccessToken")}`
+    Authorization: `Bearer ${window.sessionStorage.getItem("token")}`
   })
 };
 
