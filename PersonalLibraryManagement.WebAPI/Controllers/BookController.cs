@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalLibraryManagement.Application.Contracts;
 using PersonalLibraryManagement.Application.DTOs;
+using PersonalLibraryManagement.Application.DTOs.Response;
 using PersonalLibraryManagement.Domain.Entities;
 
 namespace PersonalLibraryManagement.WebAPI.Controllers
@@ -25,9 +26,9 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         {
             Book book = mapper.Map<Book>(bookDto);
 
-            await bookService.AddBookAsync(book);
+            Response response = await bookService.AddBookAsync(book);
 
-            return Ok("Book Added Successfully");
+            return Ok(response);
         }
 
         [HttpPost]

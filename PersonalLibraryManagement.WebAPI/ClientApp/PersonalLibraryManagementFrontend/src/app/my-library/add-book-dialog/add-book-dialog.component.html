@@ -68,6 +68,6 @@
   </form>
 </div>
 <div class="flex flex-row-reverse gap-3 p-4 mr-2">
-  <button mat-flat-button color="primary" (click)="addNewBook()" class="md:basis-1/4 sm:basis-1/2 font-mono">Submit</button>
-  <button mat-stroked-button class="md:basis-1/4 sm:basis-1/2 font-mono" mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="addNewBook()" class="md:basis-1/4 sm:basis-1/2 font-mono" [disabled]="isAddingbook">Submit</button>
+  <button mat-stroked-button class="md:basis-1/4 sm:basis-1/2 font-mono" mat-dialog-close [disabled]="isAddingbook">Cancel</button>
 </div>

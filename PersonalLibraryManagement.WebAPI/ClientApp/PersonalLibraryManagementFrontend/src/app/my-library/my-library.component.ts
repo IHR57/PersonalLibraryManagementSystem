@@ -114,10 +114,17 @@ export class MyLibraryComponent {
   ngOnInit() {
     this.getAllBooks();
   }
-
+  
   openDialog() {
-    this.dialog.open(AddBookDialogComponent, {
+    const dialogRef = this.dialog.open(AddBookDialogComponent, {
       width: "50%"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result) {
+        this.getAllBooks();
+      }
     });
   }
 

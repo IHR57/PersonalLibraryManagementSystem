@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ReadStatus } from 'src/app/models/ReadStatus';
 import { LibraryService } from 'src/app/services/library.service';
 
@@ -20,20 +21,34 @@ export class AddBookDialogComponent {
     buyingPrice: new FormControl(0),
     personalRating: new FormControl(0),
     personalNotes: new FormControl(''),
-    status: new FormControl()
+    status: new FormControl(ReadStatus.Pending.toString())
   });
+
+  isAddingbook: boolean = false;
 
   constructor(
     private libraryService: LibraryService,
+    public dialogRef: MatDialogRef<AddBookDialogComponent>
   ) { }
 
   addNewBook() {
+
+    if(this.bookForm.invalid) {
+      return;
+    }
+    
+    this.isAddingbook = true;
+    this.bookForm.controls['status'].setValue(parseInt(this.bookForm.controls['status'].value));
+
     this.libraryService.addNewBook(this.bookForm.value)
     .subscribe({
       next: (response: any) => {
         console.log(response);
+        this.isAddingbook = false;
+        this.dialogRef.close(true);
       },
       error: (error: any) => {
+        this.isAddingbook = false;
       },
       complete: () => { 
       }

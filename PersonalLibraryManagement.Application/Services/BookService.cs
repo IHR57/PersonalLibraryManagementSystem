@@ -2,6 +2,7 @@
 using PersonalLibraryManagement.Application.Contracts;
 using PersonalLibraryManagement.Application.Contracts.Persistence;
 using PersonalLibraryManagement.Application.DTOs;
+using PersonalLibraryManagement.Application.DTOs.Response;
 using PersonalLibraryManagement.Domain.Entities;
 
 namespace PersonalLibraryManagement.Application.Services
@@ -17,7 +18,7 @@ namespace PersonalLibraryManagement.Application.Services
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task AddBookAsync(Book book)
+        public async Task<Response> AddBookAsync(Book book)
         {
             Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
 
@@ -25,6 +26,13 @@ namespace PersonalLibraryManagement.Application.Services
             book.UserId = userId;
 
             await bookRepository.CreateAsync(book);
+
+            Response response = new Response
+            {
+                Success = true
+            };
+
+            return response;
         }
 
         public async Task UpdateBookAsync(Book book)
