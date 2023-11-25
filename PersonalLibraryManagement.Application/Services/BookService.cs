@@ -53,5 +53,21 @@ namespace PersonalLibraryManagement.Application.Services
 
             return await bookRepository.GetAllBooksByUserId(queryFilter, userId);
         }
+
+        public async Task<Response> GetAllCategory()
+        {
+            Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims
+                .FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
+
+            return await bookRepository.GetAllCategory(userId);
+        }
+
+        public async Task<Response> GetAllWriters()
+        {
+            Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims
+                .FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
+
+            return await bookRepository.GetAllWriters(userId);
+        }
     }
 }

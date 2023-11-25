@@ -1,4 +1,4 @@
-﻿namespace PersonalLibraryManagement.Application.DTOs
+﻿namespace PersonalLibraryManagement.Application.DTOs.Response
 {
     public class QueryPaginatedResponseDto
     {

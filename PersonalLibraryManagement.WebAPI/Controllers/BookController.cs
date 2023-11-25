@@ -31,6 +31,14 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllCategory()
+        {
+            Response response = await bookService.GetAllCategory();
+
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> UpdateBook([FromBody] BookDTO bookDto)
         {
@@ -47,6 +55,14 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
             QueryPaginatedResponseDto result = await bookService.GetAllBooksByUserId(queryFilter);
 
             return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllWriters()
+        {
+            Response response = await bookService.GetAllWriters();
+
+            return Ok(response);
         }
     }
 }

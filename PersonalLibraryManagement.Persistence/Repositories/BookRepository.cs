@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PersonalLibraryManagement.Application.Contracts.Persistence;
 using PersonalLibraryManagement.Application.DTOs;
+using PersonalLibraryManagement.Application.DTOs.Response;
 using PersonalLibraryManagement.Domain.Entities;
 using PersonalLibraryManagement.Infrastructure.Persistence.DatabaseContext;
 using System.Linq.Expressions;
@@ -41,6 +42,38 @@ namespace PersonalLibraryManagement.Persistence.Repositories
             };
 
             return queryPaginationResponseDto;
+        }
+
+        public async Task<Response> GetAllCategory(Guid userId)
+        {
+            string[] categories = await context.Books.Where(book => book.UserId == userId && book.IsMarkedToDelete == false)
+                    .Select(book => book.Category)
+                    .Distinct()
+                    .ToArrayAsync();
+
+            Response response = new Response
+            {
+                Success = true,
+                Result = categories
+            };
+
+            return response;
+        }
+
+        public async Task<Response> GetAllWriters(Guid userId)
+        {
+            string[] writers = await context.Books.Where(book => book.UserId == userId && book.IsMarkedToDelete == false)
+                    .Select(book => book.Writer)
+                    .Distinct()
+                    .ToArrayAsync();
+
+            Response response = new Response
+            {
+                Success = true,
+                Result = writers
+            };
+
+            return response;
         }
 
         private IQueryable<Book> GetQuery(GetAllBooksQueryFilter queryFilter)
