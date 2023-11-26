@@ -29,6 +29,20 @@ export class LibraryService {
     )
   }
 
+  getAllCategory(): Observable<any> {
+    return this.httpClient.get(`${this.apiURL}/GetAllCategory`, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getAllWriters(): Observable<any> {
+    return this.httpClient.get(`${this.apiURL}/GetAllWriters`, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
   addNewBook(book: any): Observable<any> {
     console.log(book);
     return this.httpClient.post<any>(this.apiURL + '/CreateBook', book, httpOptions)
