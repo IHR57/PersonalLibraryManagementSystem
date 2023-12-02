@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PersonalLibraryManagement.Application.Common.Exceptions;
 using PersonalLibraryManagement.Application.Contracts;
 using PersonalLibraryManagement.Application.Contracts.Persistence;
 using PersonalLibraryManagement.Application.DTOs;
@@ -41,7 +42,7 @@ namespace PersonalLibraryManagement.Application.Services
 
             if(book.UserId != userId)
             {
-
+                throw new ForbiddenAccessException();
             }
 
             await bookRepository.UpdateAsync(book);

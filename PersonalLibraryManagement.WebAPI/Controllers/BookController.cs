@@ -32,8 +32,13 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCategory()
+        public async Task<IActionResult> GetAllCategory([FromQuery] int id)
         {
+            if(id < 0)
+            {
+                return BadRequest();
+            }
+
             Response response = await bookService.GetAllCategory();
 
             return Ok(response);
