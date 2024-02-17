@@ -55,20 +55,20 @@ namespace PersonalLibraryManagement.Application.Services
             return await bookRepository.GetAllBooksByUserId(queryFilter, userId);
         }
 
-        public async Task<Response> GetAllCategory()
+        public async Task<Response> GetAllCategory(string searchKey)
         {
             Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims
                 .FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
 
-            return await bookRepository.GetAllCategory(userId);
+            return await bookRepository.GetAllCategory(userId, searchKey);
         }
 
-        public async Task<Response> GetAllWriters()
+        public async Task<Response> GetAllWriters(string searchKey)
         {
             Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims
                 .FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
 
-            return await bookRepository.GetAllWriters(userId);
+            return await bookRepository.GetAllWriters(userId, searchKey);
         }
     }
 }

@@ -7,8 +7,8 @@ namespace PersonalLibraryManagement.Application.Contracts
     public interface IBookService
     {
         Task<Response> AddBookAsync(Book book);
-        Task<Response> GetAllCategory();
-        Task<Response> GetAllWriters();
+        Task<Response> GetAllCategory(string searchKey);
+        Task<Response> GetAllWriters(string searchKey);
         Task UpdateBookAsync(Book book);
         Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter);
     }

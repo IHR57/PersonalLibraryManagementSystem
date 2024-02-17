@@ -7,8 +7,8 @@ namespace PersonalLibraryManagement.Application.DTOs
     {
         public bool IsFavourite { get; set; }
         public ReadStatus? ReadStatus { get; set; }
-        public string Writer { get; set; }
-        public string Category { get; set; }
+        public string[] Writers { get; set; }
+        public string[] Categories { get; set; }
         public DateTime? BoughtDateStart { get; set; }
         public DateTime? BoughtDateEnd { get; set; }
         public DateTime? FinishedDateStart { get; set; }

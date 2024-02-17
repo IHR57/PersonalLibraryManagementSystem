@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LibraryService } from '../services/library.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddBookDialogComponent } from './add-book-dialog/add-book-dialog.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-my-library',
@@ -11,9 +12,12 @@ import { AddBookDialogComponent } from './add-book-dialog/add-book-dialog.compon
 export class MyLibraryComponent {
   sortBy: string = "Bought Date";
   sortByFields: string[] = ['Name', 'Writer', 'Bought Date', 'Finished Date'];
-  categories: string[] = [];
-  writers: string[] = [];
+  categoryList: any[] = [];
+  writerList: any[] = [];
   booklist: any = [];
+
+  writers: any = []
+  categories: any = []
 
   constructor(
     private libraryService: LibraryService,
@@ -40,7 +44,16 @@ export class MyLibraryComponent {
   }
 
   getAllBooks() {
-    this.libraryService.getAllBooks(0, 10)
+    console.log(this.categories);
+    let selectedCategories = this.categories.filter((obj: { selected: boolean; name: string}) => obj.selected == true)
+                              .map((obj: { selected: boolean; name: string}) => obj.name);
+
+    let selectedWriters = this.writers.filter((writer: {  name: string; selected: boolean }) => writer.selected == true)
+                              .map((obj: { selected: boolean; name: string}) => obj.name);;
+
+    console.log(selectedCategories);
+
+    this.libraryService.getAllBooks(0, 10, selectedCategories, selectedWriters)
     .subscribe({
       next: (response: any) => {
         this.booklist = response.items;
@@ -55,7 +68,10 @@ export class MyLibraryComponent {
     this.libraryService.getAllCategory()
     .subscribe({
       next: (response: any) => {
-        this.categories = response.result;
+        this.categoryList = response.result;
+        this.categoryList.forEach(item => {
+          this.categories.push({ name: item, selected: false });
+        });
       },
       error: (error: any) => {},
       complete: () => {}
@@ -66,7 +82,10 @@ export class MyLibraryComponent {
     this.libraryService.getAllWriters()
     .subscribe({
       next: (response: any) => {
-        this.writers = response.result;
+        this.writerList = response.result;
+        this.writerList.forEach(item => {
+          this.writers.push({ name: item, selected: false });
+        });
       },
       error: (error: any) => {},
       complete: () => {}

@@ -8,8 +8,8 @@ namespace PersonalLibraryManagement.Application.Contracts.Persistence
     {
         Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter, Guid userId);
 
-        Task<Response> GetAllCategory(Guid userId);
+        Task<Response> GetAllCategory(Guid userId, string searchKey);
 
-        Task<Response> GetAllWriters(Guid userId);
+        Task<Response> GetAllWriters(Guid userId, string searchKey);
     }
 }

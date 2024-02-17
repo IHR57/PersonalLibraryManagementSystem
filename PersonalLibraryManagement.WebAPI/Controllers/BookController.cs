@@ -32,14 +32,9 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCategory([FromQuery] int id)
+        public async Task<IActionResult> GetAllCategory([FromQuery] string searchKey)
         {
-            if(id < 0)
-            {
-                return BadRequest();
-            }
-
-            Response response = await bookService.GetAllCategory();
+            Response response = await bookService.GetAllCategory(searchKey);
 
             return Ok(response);
         }
@@ -63,9 +58,9 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllWriters()
+        public async Task<IActionResult> GetAllWriters([FromQuery] string searchKey)
         {
-            Response response = await bookService.GetAllWriters();
+            Response response = await bookService.GetAllWriters(searchKey);
 
             return Ok(response);
         }

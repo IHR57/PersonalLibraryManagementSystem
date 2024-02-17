@@ -22,8 +22,8 @@ namespace PersonalLibraryManagement.Persistence.Repositories
             {
                 "name" => book => book.Name,
                 "createdDate" => book => book.CreatedDate,
-                "boughtDate" => book => book.BoughtDate,
-                "finishedDate" => book => book.FinishedDate,
+                "boughtDate" => book => book.BoughtDate.GetValueOrDefault(DateTime.MinValue),
+                "finishedDate" => book => book.FinishedDate.GetValueOrDefault(DateTime.MaxValue),
                 _ => book => book.Id
             };
 
@@ -44,12 +44,13 @@ namespace PersonalLibraryManagement.Persistence.Repositories
             return queryPaginationResponseDto;
         }
 
-        public async Task<Response> GetAllCategory(Guid userId)
+        public async Task<Response> GetAllCategory(Guid userId, string searchKey)
         {
-            string[] categories = await context.Books.Where(book => book.UserId == userId && book.IsMarkedToDelete == false)
-                    .Select(book => book.Category)
-                    .Distinct()
-                    .ToArrayAsync();
+            string[] categories = await context.Books
+                .Where(book => book.UserId == userId && book.IsMarkedToDelete == false && book.Category.StartsWith(string.IsNullOrWhiteSpace(searchKey) ? "" : searchKey))
+                .Select(book => book.Category)
+                .Distinct()
+                .ToArrayAsync();
 
             Response response = new Response
             {
@@ -60,12 +61,13 @@ namespace PersonalLibraryManagement.Persistence.Repositories
             return response;
         }
 
-        public async Task<Response> GetAllWriters(Guid userId)
+        public async Task<Response> GetAllWriters(Guid userId, string searchKey)
         {
-            string[] writers = await context.Books.Where(book => book.UserId == userId && book.IsMarkedToDelete == false)
-                    .Select(book => book.Writer)
-                    .Distinct()
-                    .ToArrayAsync();
+            string[] writers = await context.Books
+                .Where(book => book.UserId == userId && book.IsMarkedToDelete == false && book.Writer.StartsWith(string.IsNullOrWhiteSpace(searchKey) ? "" : searchKey))
+                .Select(book => book.Writer)
+                .Distinct()
+                .ToArrayAsync();
 
             Response response = new Response
             {
@@ -80,9 +82,8 @@ namespace PersonalLibraryManagement.Persistence.Repositories
         {
             IQueryable<Book> query = context.Books;
 
-            query = string.IsNullOrWhiteSpace(queryFilter.Writer) ? query : query.Where(book => book.Writer == queryFilter.Writer);
-            query = string.IsNullOrWhiteSpace(queryFilter.Category) ? query : query.Where(book => book.Category == queryFilter.Category);
-            query = queryFilter.ReadStatus.HasValue ? query.Where(book => book.Category == queryFilter.Category) : query;
+            query = queryFilter.Writers == null ? query : query.Where(book => queryFilter.Writers.Contains(book.Writer));
+            query = queryFilter.Categories == null ? query : query.Where(book => queryFilter.Categories.Contains(book.Category));
             query = query.Where(book => book.BuyingPrice >= queryFilter.PriceStart);
             query = query.Where(book => book.BuyingPrice <= queryFilter.PriceEnd);
             query = queryFilter.BoughtDateStart.HasValue ? query.Where(book => book.BoughtDate >= queryFilter.BoughtDateStart) : query;
@@ -94,8 +95,8 @@ namespace PersonalLibraryManagement.Persistence.Repositories
             {
                 "name" => book => book.Name,
                 "createdDate" => book => book.CreatedDate,
-                "boughtDate" => book => book.BoughtDate,
-                "finishedDate" => book => book.FinishedDate,
+                "boughtDate" => book => book.BoughtDate.GetValueOrDefault(DateTime.MinValue),
+                "finishedDate" => book => book.FinishedDate.GetValueOrDefault(DateTime.MaxValue),
                 _ => book => book.Id
             };
 
