@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 
 import { LoginComponent } from './auth/login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -56,7 +57,8 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
     MatDialogModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatIconModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

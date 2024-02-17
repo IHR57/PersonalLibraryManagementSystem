@@ -22,7 +22,7 @@ export class LibraryService {
     private httpClient: HttpClient
   ) { }
 
-  getAllBooks(pageIndex: number, pageSize: number, categories: string[], writers: string[]): Observable<any> {
+  getAllBooks(pageIndex: number, pageSize: number, categories: string[], writers: string[], minPrice: number, maxPrice: number, sortBy: string, ascending: boolean): Observable<any> {
     let categoriesQueryString: string = "";
     let writersQueryString: string = "";
 
@@ -31,7 +31,7 @@ export class LibraryService {
 
     console.log(categoriesQueryString);
 
-    return this.httpClient.get(`${this.apiURL}/GetAllBooks?PageIndex=${pageIndex}&PageSize=${pageSize}&${categoriesQueryString}&${writersQueryString}SortBy=createdDate&PriceStart=0&PriceEnd=10000`, httpOptions)
+    return this.httpClient.get(`${this.apiURL}/GetAllBooks?PageIndex=${pageIndex}&PageSize=${pageSize}&${categoriesQueryString}&${writersQueryString}SortBy=${sortBy}&Ascending=${ascending}&PriceStart=${minPrice}&PriceEnd=${maxPrice}`, httpOptions)
     .pipe(
       catchError(this.handleError)
     )

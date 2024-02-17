@@ -18,20 +18,11 @@ namespace PersonalLibraryManagement.Persistence.Repositories
         {
             IQueryable<Book> query = context.Books;
 
-            Expression<Func<Book, object>> keySelector = queryFilter.SortBy.ToLower() switch
-            {
-                "name" => book => book.Name,
-                "createdDate" => book => book.CreatedDate,
-                "boughtDate" => book => book.BoughtDate.GetValueOrDefault(DateTime.MinValue),
-                "finishedDate" => book => book.FinishedDate.GetValueOrDefault(DateTime.MaxValue),
-                _ => book => book.Id
-            };
-
             query = GetQuery(queryFilter);
 
             long totalItems = await query.CountAsync();
 
-            var books = await query.ToListAsync();
+            var books = await query.AsNoTracking().ToListAsync();
 
             QueryPaginatedResponseDto queryPaginationResponseDto = new QueryPaginatedResponseDto()
             {
@@ -50,6 +41,7 @@ namespace PersonalLibraryManagement.Persistence.Repositories
                 .Where(book => book.UserId == userId && book.IsMarkedToDelete == false && book.Category.StartsWith(string.IsNullOrWhiteSpace(searchKey) ? "" : searchKey))
                 .Select(book => book.Category)
                 .Distinct()
+                .AsNoTracking()
                 .ToArrayAsync();
 
             Response response = new Response
@@ -67,6 +59,7 @@ namespace PersonalLibraryManagement.Persistence.Repositories
                 .Where(book => book.UserId == userId && book.IsMarkedToDelete == false && book.Writer.StartsWith(string.IsNullOrWhiteSpace(searchKey) ? "" : searchKey))
                 .Select(book => book.Writer)
                 .Distinct()
+                .AsNoTracking()
                 .ToArrayAsync();
 
             Response response = new Response
@@ -91,12 +84,14 @@ namespace PersonalLibraryManagement.Persistence.Repositories
             query = queryFilter.FinishedDateStart.HasValue ? query.Where(book => book.FinishedDate <= queryFilter.FinishedDateStart) : query;
             query = queryFilter.FinishedDateEnd.HasValue ? query.Where(book => book.FinishedDate <= queryFilter.FinishedDateEnd) : query;
 
-            Expression<Func<Book, object>> keySelector = queryFilter.SortBy.ToLower() switch
+            Expression<Func<Book, object>> keySelector = queryFilter.SortBy switch
             {
                 "name" => book => book.Name,
                 "createdDate" => book => book.CreatedDate,
-                "boughtDate" => book => book.BoughtDate.GetValueOrDefault(DateTime.MinValue),
-                "finishedDate" => book => book.FinishedDate.GetValueOrDefault(DateTime.MaxValue),
+                "boughtDate" => book => book.BoughtDate,
+                "finishedDate" => book => book.FinishedDate,
+                "buyingPrice" => book => book.BuyingPrice.GetValueOrDefault(short.MaxValue),
+                "personalRating" => book => book.PersonalRating.GetValueOrDefault(0),
                 _ => book => book.Id
             };
 

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { LibraryService } from '../services/library.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddBookDialogComponent } from './add-book-dialog/add-book-dialog.component';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-my-library',
@@ -10,14 +9,26 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./my-library.component.scss']
 })
 export class MyLibraryComponent {
-  sortBy: string = "Bought Date";
-  sortByFields: string[] = ['Name', 'Writer', 'Bought Date', 'Finished Date'];
+  sortBy: string = "boughtDate";
+  sortByFields: any[] = [
+    { displayName: 'Name', name: 'name' },
+    { displayName: 'Created Date', name: 'createdDate' },
+    { displayName: 'Bought Date', name: 'boughtDate' },
+    { displayName: 'Finished Date', name: 'finishedDate' },
+    { displayName: 'Rating', name: 'personalRating' },
+    { displayName: 'Price', name: 'buyingPrice' }
+  ];
   categoryList: any[] = [];
   writerList: any[] = [];
   booklist: any = [];
 
   writers: any = []
   categories: any = []
+
+  startValue: number = 0;
+  endValue: number = 2000;
+
+  isAscending: boolean = true
 
   constructor(
     private libraryService: LibraryService,
@@ -51,13 +62,10 @@ export class MyLibraryComponent {
     let selectedWriters = this.writers.filter((writer: {  name: string; selected: boolean }) => writer.selected == true)
                               .map((obj: { selected: boolean; name: string}) => obj.name);;
 
-    console.log(selectedCategories);
-
-    this.libraryService.getAllBooks(0, 10, selectedCategories, selectedWriters)
+    this.libraryService.getAllBooks(0, 10, selectedCategories, selectedWriters, this.startValue, this.endValue, this.sortBy, this.isAscending)
     .subscribe({
       next: (response: any) => {
         this.booklist = response.items;
-        console.log(this.booklist);
       },
       error: (error: any) => {},
       complete: () => {}

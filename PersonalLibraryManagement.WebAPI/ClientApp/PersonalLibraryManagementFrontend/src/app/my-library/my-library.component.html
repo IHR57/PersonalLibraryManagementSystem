@@ -16,11 +16,15 @@
       </div>
       <div class="max-w-sm rounded overflow-hidden shadow-md mb-2">
         <div class="flex flex-col pb-5">
-          <div class="font-bold text-lg p-3 font-mono antialiased">SORT</div>
+          <div class="flex flex-row justify-between p-3">
+            <div class="font-bold text-lg font-mono antialiased">SORT</div>
+            <button *ngIf="isAscending" (click)="isAscending = false; getAllBooks()"><mat-icon>arrow_upward</mat-icon></button>
+            <button *ngIf="!isAscending" (click)="isAscending = true; getAllBooks()"><mat-icon>arrow_downward</mat-icon></button>
+          </div>
           <hr>
-          <mat-radio-group [(ngModel)]="sortBy" color="primary" class="p-3">
-            <mat-radio-button class="flex flex-col" *ngFor="let sortField of sortByFields" [value]="sortField">
-              <span class="text-sm font-mono antialiased">{{sortField}}</span>
+          <mat-radio-group [(ngModel)]="sortBy" color="primary" class="overflow-auto max-h-40 p-3" (ngModelChange)="getAllBooks()">
+            <mat-radio-button class="flex flex-col" *ngFor="let sortField of sortByFields" [value]="sortField.name">
+              <span class="text-sm font-mono antialiased">{{sortField.displayName}}</span>
             </mat-radio-button>
           </mat-radio-group>
         </div>
@@ -44,8 +48,8 @@
           <hr>
           <div class="pt-10 pl-6 pr-6 pb-6 flex flex-row">
             <mat-slider min="0" max="5000" step="100" discrete="true" class="flex-1">
-              <input value="0" matSliderStartThumb>
-              <input value="1000" matSliderEndThumb>
+              <input value="0" matSliderStartThumb [(ngModel)]="startValue" (ngModelChange)="getAllBooks()">
+              <input value="1000" matSliderEndThumb [(ngModel)]="endValue" (ngModelChange)="getAllBooks()">
             </mat-slider>
           </div>
         </div>
@@ -53,11 +57,22 @@
     </div>
   </div>
   <div class="basis-3/4">
-    <div class="flex flex-row-reverse">
-      <div>
+    <div class="flex flex-row-reverse space-x-2 justify-start">
+      <div class="ml-6">
         <button mat-flat-button color="primary" (click)="openDialog()" class="font-mono hover:opacity-50"><i class="fa-solid fa-plus"></i> ADD
           BOOK</button>
       </div>
+      <form>   
+        <label for="simple-search" class="sr-only">Search</label>
+        <div class="relative w-full">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+              </svg>
+            </div>
+            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by name..." required />
+        </div>
+      </form>
     </div>
     <section *ngIf="booklist.length > 0" class="text-gray-600 body-font">
       <div class="container mx-auto">
