@@ -16,9 +16,7 @@ namespace PersonalLibraryManagement.Persistence.Repositories
 
         public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter, Guid id)
         {
-            IQueryable<Book> query = context.Books;
-
-            query = GetQuery(queryFilter);
+            IQueryable<Book> query = GetQuery(queryFilter);
 
             long totalItems = await query.CountAsync();
 
@@ -75,6 +73,7 @@ namespace PersonalLibraryManagement.Persistence.Repositories
         {
             IQueryable<Book> query = context.Books;
 
+            query = string.IsNullOrWhiteSpace(queryFilter.SearchKey) ? query : query.Where(book => book.Name.Contains(queryFilter.SearchKey));
             query = queryFilter.Writers == null ? query : query.Where(book => queryFilter.Writers.Contains(book.Writer));
             query = queryFilter.Categories == null ? query : query.Where(book => queryFilter.Categories.Contains(book.Category));
             query = query.Where(book => book.BuyingPrice >= queryFilter.PriceStart);

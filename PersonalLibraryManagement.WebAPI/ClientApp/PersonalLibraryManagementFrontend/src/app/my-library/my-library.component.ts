@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LibraryService } from '../services/library.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddBookDialogComponent } from './add-book-dialog/add-book-dialog.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-my-library',
@@ -28,7 +29,8 @@ export class MyLibraryComponent {
   startValue: number = 0;
   endValue: number = 2000;
 
-  isAscending: boolean = true
+  isAscending: boolean = true;
+  searchKey = new FormControl('')
 
   constructor(
     private libraryService: LibraryService,
@@ -61,8 +63,8 @@ export class MyLibraryComponent {
 
     let selectedWriters = this.writers.filter((writer: {  name: string; selected: boolean }) => writer.selected == true)
                               .map((obj: { selected: boolean; name: string}) => obj.name);;
-
-    this.libraryService.getAllBooks(0, 10, selectedCategories, selectedWriters, this.startValue, this.endValue, this.sortBy, this.isAscending)
+                              
+    this.libraryService.getAllBooks(this.searchKey.value || "", 0, 10, selectedCategories, selectedWriters, this.startValue, this.endValue, this.sortBy, this.isAscending)
     .subscribe({
       next: (response: any) => {
         this.booklist = response.items;

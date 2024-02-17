@@ -22,16 +22,14 @@ export class LibraryService {
     private httpClient: HttpClient
   ) { }
 
-  getAllBooks(pageIndex: number, pageSize: number, categories: string[], writers: string[], minPrice: number, maxPrice: number, sortBy: string, ascending: boolean): Observable<any> {
+  getAllBooks(searchKey: string, pageIndex: number, pageSize: number, categories: string[], writers: string[], minPrice: number, maxPrice: number, sortBy: string, ascending: boolean): Observable<any> {
     let categoriesQueryString: string = "";
     let writersQueryString: string = "";
 
     categories.forEach(x => categoriesQueryString = categoriesQueryString.concat(`Categories=${x}&`))
     writers.forEach(x => writersQueryString = writersQueryString.concat(`Writers=${x}&`))
 
-    console.log(categoriesQueryString);
-
-    return this.httpClient.get(`${this.apiURL}/GetAllBooks?PageIndex=${pageIndex}&PageSize=${pageSize}&${categoriesQueryString}&${writersQueryString}SortBy=${sortBy}&Ascending=${ascending}&PriceStart=${minPrice}&PriceEnd=${maxPrice}`, httpOptions)
+    return this.httpClient.get(`${this.apiURL}/GetAllBooks?PageIndex=${pageIndex}&SearchKey=${searchKey}&PageSize=${pageSize}&${categoriesQueryString}&${writersQueryString}SortBy=${sortBy}&Ascending=${ascending}&PriceStart=${minPrice}&PriceEnd=${maxPrice}`, httpOptions)
     .pipe(
       catchError(this.handleError)
     )
