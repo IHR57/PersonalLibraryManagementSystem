@@ -36,7 +36,7 @@ namespace PersonalLibraryManagement.Application.Services
             return response;
         }
 
-        public async Task UpdateBookAsync(Book book)
+        public async Task<Response> UpdateBookAsync(Book book)
         {
             Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
 
@@ -46,6 +46,13 @@ namespace PersonalLibraryManagement.Application.Services
             }
 
             await bookRepository.UpdateAsync(book);
+
+            Response response = new Response
+            {
+                Success = true
+            };
+
+            return response;
         }
 
         public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter)

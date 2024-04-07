@@ -50,8 +50,14 @@ export class LibraryService {
   }
 
   addNewBook(book: any): Observable<any> {
-    console.log(book);
     return this.httpClient.post<any>(this.apiURL + '/CreateBook', book, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  updateBook(book: any): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + '/UpdateBook', book, httpOptions)
     .pipe(
       catchError(this.handleError)
     )

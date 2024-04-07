@@ -20,14 +20,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
-import { LoginComponent } from './auth/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './header/header.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MyLibraryComponent } from './my-library/my-library.component';
-import { AddBookDialogComponent } from './my-library/add-book-dialog/add-book-dialog.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MyLibraryComponent } from './components/my-library/my-library.component';
+import { AddBookDialogComponent } from './components/my-library/add-book-dialog/add-book-dialog.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
+import { UpdateBookDialogComponent } from './components/my-library/update-book-dialog/update-book-dialog/update-book-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
     RegisterComponent,
     DashboardComponent,
     MyLibraryComponent,
-    AddBookDialogComponent
+    AddBookDialogComponent,
+    UpdateBookDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonToggleModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

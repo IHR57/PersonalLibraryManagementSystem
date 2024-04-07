@@ -44,9 +44,9 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         {
             Book book = mapper.Map<Book>(bookDto);
 
-            await bookService.UpdateBookAsync(book);
+            Response response = await bookService.UpdateBookAsync(book);
 
-            return Ok("Book Updated Successfully");
+            return Ok(response);
         }
 
         [HttpGet]

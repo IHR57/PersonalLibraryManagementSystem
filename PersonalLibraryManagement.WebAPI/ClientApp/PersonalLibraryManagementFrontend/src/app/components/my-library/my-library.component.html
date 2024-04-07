@@ -77,15 +77,20 @@
     <section *ngIf="booklist.length > 0" class="text-gray-600 body-font">
       <div class="container mx-auto">
         <div class="flex flex-wrap">
-          <div *ngFor="let book of booklist" class="p-4 md:w-1/4">
-            <div
-              class="h-full rounded-lg overflow-hidden shadow-md button hover:shadow-lg hover:bg-blue-50 cursor-pointer">
-              <img class="lg:h-36 md:h-24 w-full object-cover object-center" src="/assets/img/sample_book.jpg"
-                alt="blog">
-              <div class="p-6">
+          <div *ngFor="let book of booklist" class="p-4 md:w-1/4 sm:w-1/2">
+            <div class="group relative h-full rounded-lg overflow-hidden shadow-md button hover:shadow-lg cursor-pointer">
+              <img class="lg:h-36 md:h-24 w-full object-cover object-center group-hover:opacity-20" src="/assets/img/sample_book.jpg" alt="blog">
+              <div class="p-6 group-hover:opacity-30">
                 <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{book.category}}</h2>
                 <p class="text-sm text-gray-900 pb-1 font-mono font-bold antialiased">{{book.name}}</p>
                 <p class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{book.writer}}</p>
+              </div> 
+              <div class="absolute inset-0 flex items-end justify-center w-full pb-3">
+                <mat-button-toggle-group class="opacity-0 group-hover:opacity-100" appearance="standard">
+                  <mat-button-toggle value="italic" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="secondary">info</mat-icon></mat-button-toggle>
+                  <mat-button-toggle value="bold" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="primary" (click)="openUpdateBookDialog(book)">edit</mat-icon></mat-button-toggle>
+                  <mat-button-toggle value="underline" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="warn">delete</mat-icon></mat-button-toggle>
+                </mat-button-toggle-group>
               </div>
             </div>
           </div>

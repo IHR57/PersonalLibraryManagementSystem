@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { LibraryService } from '../services/library.service';
+import { LibraryService } from '../../services/library.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddBookDialogComponent } from './add-book-dialog/add-book-dialog.component';
 import { FormControl } from '@angular/forms';
+import { UpdateBookDialogComponent } from './update-book-dialog/update-book-dialog/update-book-dialog.component';
 
 @Component({
   selector: 'app-my-library',
@@ -54,6 +55,19 @@ export class MyLibraryComponent {
         this.getAllBooks();
       }
     });
+  }
+
+  openUpdateBookDialog(bookInfo: any) {
+    const updateBookDialogRef = this.dialog.open(UpdateBookDialogComponent, {
+      width: "50%",
+      data : bookInfo
+    });
+
+    updateBookDialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.getAllBooks();
+      }
+    })
   }
 
   getAllBooks() {
