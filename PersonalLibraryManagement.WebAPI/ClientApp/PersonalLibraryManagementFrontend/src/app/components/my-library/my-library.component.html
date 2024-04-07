@@ -74,7 +74,12 @@
         </div>
       </form>
     </div>
-    <section *ngIf="booklist.length > 0" class="text-gray-600 body-font">
+    <section *ngIf="isLoading$ | async">
+      <div class="flex flex-wrap items-center justify-center h-40">
+        <mat-progress-spinner [diameter]="30"></mat-progress-spinner>
+      </div>
+    </section>
+    <section *ngIf="isLoading$.getValue() == false && booklist.length > 0" class="text-gray-600 body-font">
       <div class="container mx-auto">
         <div class="flex flex-wrap">
           <div *ngFor="let book of booklist" class="p-4 md:w-1/4 sm:w-1/2">
@@ -88,12 +93,15 @@
               <div class="absolute inset-0 flex items-end justify-center w-full pb-3">
                 <mat-button-toggle-group class="opacity-0 group-hover:opacity-100" appearance="standard">
                   <mat-button-toggle value="italic" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="secondary">info</mat-icon></mat-button-toggle>
-                  <mat-button-toggle value="bold" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="primary" (click)="openUpdateBookDialog(book)">edit</mat-icon></mat-button-toggle>
+                  <mat-button-toggle (click)="openUpdateBookDialog(book)" value="bold" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="primary">edit</mat-icon></mat-button-toggle>
                   <mat-button-toggle value="underline" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="warn">delete</mat-icon></mat-button-toggle>
                 </mat-button-toggle-group>
               </div>
             </div>
           </div>
+        </div>
+        <div class="flex flex-row justify-end pr-3">
+          <app-pagination [pageIndex]="currentPageIndex" [maxPageIndex]="maxPageIndex" [totalItems]="totalItems" (pageChangedEvent)="onPageChange($event)"></app-pagination>
         </div>
       </div>
     </section>

@@ -20,6 +20,9 @@ namespace PersonalLibraryManagement.Persistence.Repositories
 
             long totalItems = await query.CountAsync();
 
+            query = query.Skip(queryFilter.PageIndex * queryFilter.PageSize)
+                .Take(queryFilter.PageSize);
+
             var books = await query.AsNoTracking().ToListAsync();
 
             QueryPaginatedResponseDto queryPaginationResponseDto = new QueryPaginatedResponseDto()
@@ -94,9 +97,7 @@ namespace PersonalLibraryManagement.Persistence.Repositories
                 _ => book => book.Id
             };
 
-            query = queryFilter.Ascending ? query.OrderBy(keySelector) : query.OrderByDescending(keySelector)
-                .Skip((queryFilter.PageIndex) * queryFilter.PageSize)
-                .Take(queryFilter.PageSize);
+            query = queryFilter.Ascending ? query.OrderBy(keySelector) : query.OrderByDescending(keySelector);
 
             return query;
         }

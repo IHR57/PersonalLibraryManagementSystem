@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -30,6 +31,7 @@ import { MyLibraryComponent } from './components/my-library/my-library.component
 import { AddBookDialogComponent } from './components/my-library/add-book-dialog/add-book-dialog.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { UpdateBookDialogComponent } from './components/my-library/update-book-dialog/update-book-dialog/update-book-dialog.component';
+import { PaginationComponent } from './shared/components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { UpdateBookDialogComponent } from './components/my-library/update-book-d
     DashboardComponent,
     MyLibraryComponent,
     AddBookDialogComponent,
-    UpdateBookDialogComponent
+    UpdateBookDialogComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { UpdateBookDialogComponent } from './components/my-library/update-book-d
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatProgressSpinnerModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
