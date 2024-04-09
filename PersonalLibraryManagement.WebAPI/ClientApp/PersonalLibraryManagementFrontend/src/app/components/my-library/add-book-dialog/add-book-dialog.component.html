@@ -9,14 +9,34 @@
 
     <mat-form-field class="w-full font-mono">
       <mat-label>Writer</mat-label>
-      <input matInput formControlName="writer" class="rounded-md border border-gray-300 p-2"
-        placeholder="Enter Writer Name">
+      <input type="text" 
+            matInput 
+            (keyup)="onTypeWriter()" 
+            formControlName="writer"
+            [matAutocomplete]="auto"
+            class="rounded-md border border-gray-300 p-2"
+            placeholder="Enter Writer Name">
+            <mat-autocomplete #auto="matAutocomplete">
+              <ng-container *ngFor="let option of writerSelctionOptions$ | async">
+                <mat-option [value]="option">{{ option }}</mat-option>
+              </ng-container>
+            </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="w-full font-mono">
       <mat-label>Category</mat-label>
-      <input matInput formControlName="category" class="rounded-md border border-gray-300 p-2"
-        placeholder="Enter Book Category">
+      <input type="text" 
+            matInput 
+            (keyup)="onTypeCategory()" 
+            formControlName="category"
+            [matAutocomplete]="auto2"
+            class="rounded-md border border-gray-300 p-2"
+            placeholder="Enter Category Name">
+      <mat-autocomplete #auto2="matAutocomplete">
+        <ng-container *ngFor="let option of categorySelectionOptions$ | async">
+          <mat-option [value]="option">{{ option }}</mat-option>
+        </ng-container>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field class="w-full font-mono">
@@ -68,6 +88,6 @@
   </form>
 </div>
 <div class="flex flex-row-reverse gap-3 p-4 mr-2">
-  <button mat-flat-button color="primary" (click)="addNewBook()" class="md:basis-1/4 sm:basis-1/2 font-mono" [disabled]="isAddingbook">Submit</button>
-  <button mat-stroked-button class="md:basis-1/4 sm:basis-1/2 font-mono" mat-dialog-close [disabled]="isAddingbook">Cancel</button>
+  <button mat-flat-button color="primary" (click)="addNewBook()" class="md:basis-1/4 sm:basis-1/2 font-mono" [disabled]="isAddingBook$ | async">Submit</button>
+  <button mat-stroked-button class="md:basis-1/4 sm:basis-1/2 font-mono" mat-dialog-close [disabled]="isAddingBook$ | async">Cancel</button>
 </div>

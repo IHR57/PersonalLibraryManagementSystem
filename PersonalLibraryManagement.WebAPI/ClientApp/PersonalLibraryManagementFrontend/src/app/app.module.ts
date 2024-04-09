@@ -22,6 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -66,7 +67,8 @@ import { PaginationComponent } from './shared/components/pagination/pagination.c
     MatNativeDateModule,
     MatIconModule,
     MatButtonToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatAutocompleteModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

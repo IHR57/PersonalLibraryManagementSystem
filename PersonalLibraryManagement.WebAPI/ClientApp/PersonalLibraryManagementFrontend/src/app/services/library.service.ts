@@ -35,15 +35,15 @@ export class LibraryService {
     )
   }
 
-  getAllCategory(): Observable<any> {
-    return this.httpClient.get(`${this.apiURL}/GetAllCategory`, httpOptions)
+  getAllCategory(searchKey: string = ""): Observable<any> {
+    return this.httpClient.get(`${this.apiURL}/GetAllCategory?searchKey=${searchKey}`, httpOptions)
     .pipe(
       catchError(this.handleError)
     )
   }
 
-  getAllWriters(): Observable<any> {
-    return this.httpClient.get(`${this.apiURL}/GetAllWriters`, httpOptions)
+  getAllWriters(searchKey: string = ""): Observable<any> {
+    return this.httpClient.get(`${this.apiURL}/GetAllWriters?searchKey=${searchKey}`, httpOptions)
     .pipe(
       catchError(this.handleError)
     )
