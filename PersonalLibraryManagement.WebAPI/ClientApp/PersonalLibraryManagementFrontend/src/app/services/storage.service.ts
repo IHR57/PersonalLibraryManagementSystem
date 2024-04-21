@@ -19,6 +19,10 @@ export class StorageService {
     window.sessionStorage.setItem("token", user.token);
   }
 
+  public removeUser(): void {
+    window.sessionStorage.removeItem(USER_KEY);
+  }
+
   public getUser(): any {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
