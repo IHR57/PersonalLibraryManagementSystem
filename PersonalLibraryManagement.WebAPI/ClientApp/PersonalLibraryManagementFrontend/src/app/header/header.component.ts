@@ -6,7 +6,7 @@ import { StorageService } from '../services/storage.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
   showMenu = false;
@@ -22,7 +22,7 @@ export class HeaderComponent {
     this.isLoggedIn = this.storageService.isLoggedIn();
   }
 
-  toggleNavbar(){
+  toggleNavbar() {
     this.showMenu = !this.showMenu;
   }
 
@@ -30,9 +30,9 @@ export class HeaderComponent {
     // this.authService.logout().subscribe({
     //   next: res => {
     //     console.log(res);
-        this.storageService.clean();
+    this.storageService.clean();
 
-        window.location.reload();
+    window.location.reload();
     //   },
     //   error: err => {
     //     console.log(err);

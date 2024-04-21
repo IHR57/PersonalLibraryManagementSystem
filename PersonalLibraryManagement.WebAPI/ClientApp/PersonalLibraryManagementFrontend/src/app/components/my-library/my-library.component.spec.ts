@@ -8,7 +8,7 @@ xdescribe('MyLibraryComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MyLibraryComponent]
+      declarations: [MyLibraryComponent],
     });
     fixture = TestBed.createComponent(MyLibraryComponent);
     component = fixture.componentInstance;

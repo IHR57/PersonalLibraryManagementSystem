@@ -1,47 +1,46 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/User';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json'
-  })
+    'Content-Type': 'application/json',
+  }),
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
-  private apiURL = "https://localhost:7278/api/Account/";
+  private apiURL = 'https://localhost:7278/api/Account/';
 
-  constructor(
-    private httpClient: HttpClient
-  ) { }
+  constructor(private httpClient: HttpClient) {}
 
   logout() {
     // Perform logout logic here
-    console.log("Here I AM");
+    console.log('Here I AM');
   }
-  
+
   registerNewUser(user: User): Observable<any> {
-    return this.httpClient.post<User>(this.apiURL + 'Register', user, httpOptions)
-    .pipe(
-      catchError(this.handleError)
-    )
+    return this.httpClient
+      .post<User>(this.apiURL + 'Register', user, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   login(email: string, password: string): Observable<any> {
-    const loginRequest =  {
-      'email': email,
-      'password': password
+    const loginRequest = {
+      email: email,
+      password: password,
     };
 
-    return this.httpClient.post<any>(this.apiURL + 'Login', loginRequest, httpOptions)
-    .pipe(
-      catchError(this.handleError)
-    )
+    return this.httpClient
+      .post<any>(this.apiURL + 'Login', loginRequest, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -52,9 +51,13 @@ export class AuthService {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
       console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
     }
     // Return an observable with a user-facing error message.
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
   }
 }

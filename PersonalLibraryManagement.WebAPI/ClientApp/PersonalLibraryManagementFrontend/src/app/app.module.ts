@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,7 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -44,7 +44,7 @@ import { PaginationComponent } from './shared/components/pagination/pagination.c
     MyLibraryComponent,
     AddBookDialogComponent,
     UpdateBookDialogComponent,
-    PaginationComponent
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,9 +68,9 @@ import { PaginationComponent } from './shared/components/pagination/pagination.c
     MatIconModule,
     MatButtonToggleModule,
     MatProgressSpinnerModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   providers: [httpInterceptorProviders],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

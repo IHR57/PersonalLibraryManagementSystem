@@ -3,12 +3,19 @@
     <div class="flex flex-col">
       <div class="max-w-sm rounded overflow-hidden shadow-md mb-2">
         <div class="flex flex-col pb-5">
-          <div class="font-bold text-lg p-3 font-mono antialiased">CATEGORIES</div>
-          <hr>
+          <div class="font-bold text-lg p-3 font-mono antialiased">
+            CATEGORIES
+          </div>
+          <hr />
           <ul class="overflow-auto max-h-40 p-3">
             <li *ngFor="let category of categories">
-              <mat-checkbox color="primary" [(ngModel)]="category.selected" (ngModelChange)="getAllBooks()">
-                <span class="text-sm font-mono antialiased">{{category.name}}</span>
+              <mat-checkbox
+                color="primary"
+                [(ngModel)]="category.selected"
+                (ngModelChange)="getAllBooks()">
+                <span class="text-sm font-mono antialiased">{{
+                  category.name
+                }}</span>
               </mat-checkbox>
             </li>
           </ul>
@@ -18,13 +25,30 @@
         <div class="flex flex-col pb-5">
           <div class="flex flex-row justify-between p-3">
             <div class="font-bold text-lg font-mono antialiased">SORT</div>
-            <button *ngIf="isAscending" (click)="isAscending = false; getAllBooks()"><mat-icon>arrow_upward</mat-icon></button>
-            <button *ngIf="!isAscending" (click)="isAscending = true; getAllBooks()"><mat-icon>arrow_downward</mat-icon></button>
+            <button
+              *ngIf="isAscending"
+              (click)="isAscending = false; getAllBooks()">
+              <mat-icon>arrow_upward</mat-icon>
+            </button>
+            <button
+              *ngIf="!isAscending"
+              (click)="isAscending = true; getAllBooks()">
+              <mat-icon>arrow_downward</mat-icon>
+            </button>
           </div>
-          <hr>
-          <mat-radio-group [(ngModel)]="sortBy" color="primary" class="overflow-auto max-h-40 p-3" (ngModelChange)="getAllBooks()">
-            <mat-radio-button class="flex flex-col" *ngFor="let sortField of sortByFields" [value]="sortField.name">
-              <span class="text-sm font-mono antialiased">{{sortField.displayName}}</span>
+          <hr />
+          <mat-radio-group
+            [(ngModel)]="sortBy"
+            color="primary"
+            class="overflow-auto max-h-40 p-3"
+            (ngModelChange)="getAllBooks()">
+            <mat-radio-button
+              class="flex flex-col"
+              *ngFor="let sortField of sortByFields"
+              [value]="sortField.name">
+              <span class="text-sm font-mono antialiased">{{
+                sortField.displayName
+              }}</span>
             </mat-radio-button>
           </mat-radio-group>
         </div>
@@ -32,11 +56,16 @@
       <div class="max-w-sm rounded overflow-hidden shadow-md mb-2">
         <div class="flex flex-col pb-5">
           <div class="font-bold text-lg p-3 font-mono antialiased">WRITERS</div>
-          <hr>
+          <hr />
           <ul class="overflow-auto max-h-40 p-3">
             <li *ngFor="let writer of writers">
-              <mat-checkbox color="primary" [(ngModel)]="writer.selected" (ngModelChange)="getAllBooks()">
-                <span class="font-mono antialiased text-sm">{{writer.name}}</span>
+              <mat-checkbox
+                color="primary"
+                [(ngModel)]="writer.selected"
+                (ngModelChange)="getAllBooks()">
+                <span class="font-mono antialiased text-sm">{{
+                  writer.name
+                }}</span>
               </mat-checkbox>
             </li>
           </ul>
@@ -44,12 +73,27 @@
       </div>
       <div class="max-w-sm rounded overflow-hidden shadow-md mb-2">
         <div class="flex flex-col">
-          <div class="font-bold text-lg p-3 font-mono antialiased">BUYING PRICE</div>
-          <hr>
+          <div class="font-bold text-lg p-3 font-mono antialiased">
+            BUYING PRICE
+          </div>
+          <hr />
           <div class="pt-10 pl-6 pr-6 pb-6 flex flex-row">
-            <mat-slider min="0" max="5000" step="100" discrete="true" class="flex-1">
-              <input value="0" matSliderStartThumb [(ngModel)]="startValue" (ngModelChange)="getAllBooks()">
-              <input value="1000" matSliderEndThumb [(ngModel)]="endValue" (ngModelChange)="getAllBooks()">
+            <mat-slider
+              min="0"
+              max="5000"
+              step="100"
+              discrete="true"
+              class="flex-1">
+              <input
+                value="0"
+                matSliderStartThumb
+                [(ngModel)]="startValue"
+                (ngModelChange)="getAllBooks()" />
+              <input
+                value="1000"
+                matSliderEndThumb
+                [(ngModel)]="endValue"
+                (ngModelChange)="getAllBooks()" />
             </mat-slider>
           </div>
         </div>
@@ -59,18 +103,40 @@
   <div class="basis-3/4">
     <div class="flex flex-row-reverse space-x-2 justify-start">
       <div class="ml-6">
-        <button mat-flat-button color="primary" (click)="openDialog()" class="font-mono hover:opacity-50"><i class="fa-solid fa-plus"></i> ADD
-          BOOK</button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="openDialog()"
+          class="font-mono hover:opacity-50">
+          <i class="fa-solid fa-plus"></i> ADD BOOK
+        </button>
       </div>
-      <form>   
+      <form>
         <label for="simple-search" class="sr-only">Search</label>
         <div class="relative w-full">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-              </svg>
-            </div>
-            <input type="text" [formControl]="searchKey" (keyup)="getAllBooks()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by name..." required />
+          <div
+            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg
+              class="w-4 h-4"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20">
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            [formControl]="searchKey"
+            (keyup)="getAllBooks()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search by name..."
+            required />
         </div>
       </form>
     </div>
@@ -79,29 +145,68 @@
         <mat-progress-spinner [diameter]="30"></mat-progress-spinner>
       </div>
     </section>
-    <section *ngIf="isLoading$.getValue() == false && booklist.length > 0" class="text-gray-600 body-font">
+    <section
+      *ngIf="isLoading$.getValue() === false && booklist.length > 0"
+      class="text-gray-600 body-font">
       <div class="container mx-auto">
         <div class="flex flex-wrap">
           <div *ngFor="let book of booklist" class="p-4 md:w-1/4 sm:w-1/2">
-            <div class="group relative h-full rounded-lg overflow-hidden shadow-md button hover:shadow-lg cursor-pointer">
-              <img class="lg:h-36 md:h-24 w-full object-cover object-center group-hover:opacity-20" src="/assets/img/sample_book.jpg" alt="blog">
+            <div
+              class="group relative h-full rounded-lg overflow-hidden shadow-md button hover:shadow-lg cursor-pointer">
+              <img
+                class="lg:h-36 md:h-24 w-full object-cover object-center group-hover:opacity-20"
+                src="/assets/img/sample_book.jpg"
+                alt="blog" />
               <div class="p-6 group-hover:opacity-30">
-                <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{book.category}}</h2>
-                <p class="text-sm text-gray-900 pb-1 font-mono font-bold antialiased">{{book.name}}</p>
-                <p class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{{book.writer}}</p>
-              </div> 
-              <div class="absolute inset-0 flex items-end justify-center w-full pb-3">
-                <mat-button-toggle-group class="opacity-0 group-hover:opacity-100" appearance="standard">
-                  <mat-button-toggle value="italic" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="secondary">info</mat-icon></mat-button-toggle>
-                  <mat-button-toggle (click)="openUpdateBookDialog(book)" value="bold" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="primary">edit</mat-icon></mat-button-toggle>
-                  <mat-button-toggle value="underline" class="opacity-0 group-hover:opacity-100 transition-opacity w-full"><mat-icon color="warn">delete</mat-icon></mat-button-toggle>
+                <h2
+                  class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
+                  {{ book.category }}
+                </h2>
+                <p
+                  class="text-sm text-gray-900 pb-1 font-mono font-bold antialiased">
+                  {{ book.name }}
+                </p>
+                <p
+                  class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
+                  {{ book.writer }}
+                </p>
+              </div>
+              <div
+                class="absolute inset-0 flex items-end justify-center w-full pb-3">
+                <mat-button-toggle-group
+                  class="opacity-0 group-hover:opacity-100"
+                  appearance="standard">
+                  <mat-button-toggle
+                    value="italic"
+                    class="opacity-0 group-hover:opacity-100 transition-opacity w-full"
+                    ><mat-icon color="secondary"
+                      >info</mat-icon
+                    ></mat-button-toggle
+                  >
+                  <mat-button-toggle
+                    (click)="openUpdateBookDialog(book)"
+                    value="bold"
+                    class="opacity-0 group-hover:opacity-100 transition-opacity w-full"
+                    ><mat-icon color="primary"
+                      >edit</mat-icon
+                    ></mat-button-toggle
+                  >
+                  <mat-button-toggle
+                    value="underline"
+                    class="opacity-0 group-hover:opacity-100 transition-opacity w-full"
+                    ><mat-icon color="warn">delete</mat-icon></mat-button-toggle
+                  >
                 </mat-button-toggle-group>
               </div>
             </div>
           </div>
         </div>
         <div class="flex flex-row justify-end pr-3">
-          <app-pagination [pageIndex]="currentPageIndex" [maxPageIndex]="maxPageIndex" [totalItems]="totalItems" (pageChangedEvent)="onPageChange($event)"></app-pagination>
+          <app-pagination
+            [pageIndex]="currentPageIndex"
+            [maxPageIndex]="maxPageIndex"
+            [totalItems]="totalItems"
+            (pageChangedEvent)="onPageChange($event)"></app-pagination>
         </div>
       </div>
     </section>

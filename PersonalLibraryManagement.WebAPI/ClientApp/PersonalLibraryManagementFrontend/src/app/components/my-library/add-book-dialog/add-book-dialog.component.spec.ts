@@ -8,7 +8,7 @@ xdescribe('AddBookDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddBookDialogComponent]
+      declarations: [AddBookDialogComponent],
     });
     fixture = TestBed.createComponent(AddBookDialogComponent);
     component = fixture.componentInstance;

@@ -8,10 +8,9 @@ import { LibraryService } from 'src/app/services/library.service';
 @Component({
   selector: 'app-update-book-dialog',
   templateUrl: './update-book-dialog.component.html',
-  styleUrls: ['./update-book-dialog.component.scss']
+  styleUrls: ['./update-book-dialog.component.scss'],
 })
 export class UpdateBookDialogComponent {
-
   isUpdatingBook$ = new BehaviorSubject<boolean>(false);
 
   bookForm: FormGroup = new FormGroup({
@@ -26,9 +25,9 @@ export class UpdateBookDialogComponent {
     buyingPrice: new FormControl(0),
     personalRating: new FormControl(0),
     personalNotes: new FormControl(''),
-    status: new FormControl(ReadStatus.Pending.toString())
+    status: new FormControl(ReadStatus.Pending.toString()),
   });
-  
+
   constructor(
     private libraryService: LibraryService,
     public dialogRef: MatDialogRef<UpdateBookDialogComponent>,
@@ -54,17 +53,17 @@ export class UpdateBookDialogComponent {
     this.bookForm.controls['status'].setValue(parseInt(this.data.status));
   }
 
-
   updateBook() {
-    if(this.bookForm.invalid) {
+    if (this.bookForm.invalid) {
       return;
     }
-    
-    this.isUpdatingBook$.next(true);
-    this.bookForm.controls['status'].setValue(parseInt(this.bookForm.controls['status'].value));
 
-    this.libraryService.updateBook(this.bookForm.value)
-    .subscribe({
+    this.isUpdatingBook$.next(true);
+    this.bookForm.controls['status'].setValue(
+      parseInt(this.bookForm.controls['status'].value)
+    );
+
+    this.libraryService.updateBook(this.bookForm.value).subscribe({
       next: (response: any) => {
         this.isUpdatingBook$.next(false);
         this.dialogRef.close(true);
@@ -72,9 +71,9 @@ export class UpdateBookDialogComponent {
       error: (error: any) => {
         this.isUpdatingBook$.next(false);
       },
-      complete: () => { 
+      complete: () => {
         this.dialogRef.close(true);
-      }
-    })
+      },
+    });
   }
 }
