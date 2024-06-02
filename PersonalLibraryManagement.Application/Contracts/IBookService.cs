@@ -11,5 +11,6 @@ namespace PersonalLibraryManagement.Application.Contracts
         Task<Response> GetAllWriters(string searchKey);
         Task<Response> UpdateBookAsync(Book book);
         Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter);
+        Task<Book> GetBookDetailsById(string bookId);
     }
 }

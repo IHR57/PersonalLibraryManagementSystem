@@ -64,5 +64,13 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookDetails([FromRoute] string id)
+        {
+            Book book = await bookService.GetBookDetailsById(id);
+
+            return Ok(book);
+        }
     }
 }

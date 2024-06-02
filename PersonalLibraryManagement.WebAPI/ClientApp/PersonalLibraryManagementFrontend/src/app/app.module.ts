@@ -33,6 +33,7 @@ import { AddBookDialogComponent } from './components/my-library/add-book-dialog/
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { UpdateBookDialogComponent } from './components/my-library/update-book-dialog/update-book-dialog/update-book-dialog.component';
 import { PaginationComponent } from './shared/components/pagination/pagination.component';
+import { BookDetailsComponent } from './components/my-library/book-details/book-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { PaginationComponent } from './shared/components/pagination/pagination.c
     AddBookDialogComponent,
     UpdateBookDialogComponent,
     PaginationComponent,
+    BookDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { UpdateBookDialogComponent } from './update-book-dialog/update-book-dialog/update-book-dialog.component';
 import { BehaviorSubject } from 'rxjs';
 import { AppConstants } from 'src/app/shared/app.constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-library',
@@ -43,6 +44,7 @@ export class MyLibraryComponent {
 
   constructor(
     private libraryService: LibraryService,
+    private router: Router,
     public dialog: MatDialog
   ) {}
 
@@ -151,5 +153,9 @@ export class MyLibraryComponent {
         });
       },
     });
+  }
+
+  viewBookDetails(bookId: string) {
+    this.router.navigate([`/my-library/book/${bookId}`]);
   }
 }

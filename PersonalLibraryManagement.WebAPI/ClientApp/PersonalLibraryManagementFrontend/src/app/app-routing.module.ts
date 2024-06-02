@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MyLibraryComponent } from './components/my-library/my-library.component';
+import { BookDetailsComponent } from './components/my-library/book-details/book-details.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,12 @@ const routes: Routes = [
     path: 'my-library',
     component: MyLibraryComponent,
   },
+  {
+    path: 'my-library/book/:id',
+    component: BookDetailsComponent
+  },
+  { path: '', redirectTo: '/my-library', pathMatch: 'full' },
+  { path: '**', redirectTo: '/my-library' }
 ];
 
 @NgModule({

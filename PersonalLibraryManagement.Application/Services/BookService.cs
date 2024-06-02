@@ -5,6 +5,7 @@ using PersonalLibraryManagement.Application.Contracts.Persistence;
 using PersonalLibraryManagement.Application.DTOs;
 using PersonalLibraryManagement.Application.DTOs.Response;
 using PersonalLibraryManagement.Domain.Entities;
+using System.Runtime.InteropServices;
 
 namespace PersonalLibraryManagement.Application.Services
 {
@@ -76,6 +77,11 @@ namespace PersonalLibraryManagement.Application.Services
                 .FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
 
             return await bookRepository.GetAllWriters(userId, searchKey);
+        }
+
+        public async Task<Book> GetBookDetailsById(string bookId)
+        {
+            return await bookRepository.GetByIdAsync(Guid.Parse(bookId));
         }
     }
 }

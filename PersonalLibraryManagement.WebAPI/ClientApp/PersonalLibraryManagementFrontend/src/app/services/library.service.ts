@@ -78,6 +78,12 @@ export class LibraryService {
       .pipe(catchError(this.handleError));
   }
 
+  getBookDetailsById(id: string): Observable<any> {
+    return this.httpClient
+      .get(`${this.apiURL}/GetBookDetails/${id}`, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
