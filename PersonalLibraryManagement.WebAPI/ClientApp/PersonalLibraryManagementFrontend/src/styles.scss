@@ -1,10 +1,10 @@
 // styles.scss
 @import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import url('tailwindcss/components');
+@import url('tailwindcss/utilities');
 
 /* styles.scss */
-@import '~@fortawesome/fontawesome-free/css/all.css';
+@import url('~@fortawesome/fontawesome-free/css/all.css');
 
 .snackbar-failed {
     background-color: aliceblue;

@@ -10,7 +10,7 @@ namespace PersonalLibraryManagement.Application.Common.Filters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            if(context.Exception is HttpResponseException httpResponseException)
+            if (context.Exception is HttpResponseException httpResponseException)
             {
                 context.Result = new ObjectResult(httpResponseException.Value)
                 {

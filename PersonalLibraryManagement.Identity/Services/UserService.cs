@@ -18,7 +18,7 @@ namespace PersonalLibraryManagment.Infrastructure.Identity.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string UserId { get => _httpContextAccessor.HttpContext?.User.FindFirstValue("uid"); } 
+        public string UserId { get => _httpContextAccessor.HttpContext?.User.FindFirstValue("uid"); }
 
         public async Task<User> GetUser(string UserId)
         {
@@ -41,7 +41,7 @@ namespace PersonalLibraryManagment.Infrastructure.Identity.Services
                 Email = q.Email,
                 DisplayName = q.DisplayName,
             }).ToList();
-           
+
         }
     }
 }

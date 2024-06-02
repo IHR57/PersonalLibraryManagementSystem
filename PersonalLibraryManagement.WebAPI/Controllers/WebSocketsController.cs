@@ -18,7 +18,7 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         [HttpGet("/ws")]
         public async Task Get()
         {
-            if(HttpContext.WebSockets.IsWebSocketRequest)
+            if (HttpContext.WebSockets.IsWebSocketRequest)
             {
                 using var websocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
 

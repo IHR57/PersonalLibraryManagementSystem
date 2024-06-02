@@ -6,6 +6,6 @@ namespace PersonalLibraryManagement.Application.Identity
     {
         Task<AuthResponse> Login(AuthRequest request);
 
-        Task<RegistrationResponse> Register(RegistrationRequest request); 
+        Task<RegistrationResponse> Register(RegistrationRequest request);
     }
 }

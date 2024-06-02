@@ -9,7 +9,7 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         [Route("/error-development")]
         public IActionResult HandleErrorDevelopment([FromServices] IHostEnvironment hostEnvironment)
         {
-            if(!hostEnvironment.IsDevelopment())
+            if (!hostEnvironment.IsDevelopment())
             {
                 return NotFound();
             }

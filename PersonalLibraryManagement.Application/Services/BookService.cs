@@ -40,7 +40,7 @@ namespace PersonalLibraryManagement.Application.Services
         {
             Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
 
-            if(book.UserId != userId)
+            if (book.UserId != userId)
             {
                 throw new ForbiddenAccessException();
             }
