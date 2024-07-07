@@ -7,6 +7,8 @@ import { UpdateBookDialogComponent } from './update-book-dialog/update-book-dial
 import { BehaviorSubject } from 'rxjs';
 import { AppConstants } from 'src/app/shared/app.constants';
 import { Router } from '@angular/router';
+import { Book } from 'src/app/models/Book';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-my-library',
@@ -14,7 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./my-library.component.scss'],
 })
 export class MyLibraryComponent {
-  isLoading$ = new BehaviorSubject<boolean>(true);
+  isLoading$ = new BehaviorSubject<boolean>(false);
 
   sortBy = 'boughtDate';
   totalItems = 0;
@@ -88,17 +90,9 @@ export class MyLibraryComponent {
   getAllBooks(pageIndex = 0) {
     this.currentPageIndex = pageIndex;
     this.isLoading$.next(true);
-    const selectedCategories = this.categories
-      .filter(
-        (obj: { selected: boolean; name: string }) => obj.selected == true
-      )
-      .map((obj: { selected: boolean; name: string }) => obj.name);
 
-    const selectedWriters = this.writers
-      .filter(
-        (writer: { name: string; selected: boolean }) => writer.selected == true
-      )
-      .map((obj: { selected: boolean; name: string }) => obj.name);
+    const selectedCategories = this.getSelectedCategories();
+    const selectedWriters = this.getSelectedWriters();
 
     this.libraryService
       .getAllBooks(
@@ -120,6 +114,22 @@ export class MyLibraryComponent {
           this.isLoading$.next(false);
         },
       });
+  }
+
+  private getSelectedCategories(): string[] {
+    return this.categories
+    .filter(
+      (obj: { selected: boolean; name: string }) => obj.selected == true
+    )
+    .map((obj: { selected: boolean; name: string }) => obj.name);
+  }
+
+  private getSelectedWriters(): string[] {
+    return this.writers
+      .filter(
+        (writer: { name: string; selected: boolean }) => writer.selected == true
+      )
+      .map((obj: { selected: boolean; name: string }) => obj.name);
   }
 
   setMaxPageNumber() {
@@ -153,6 +163,20 @@ export class MyLibraryComponent {
         });
       },
     });
+  }
+
+  onClickDelete(book: Book) {
+    this.openConfirmationDialog().subscribe(result => {
+      console.log(result);
+    })
+  }
+
+  private openConfirmationDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '600px',
+    });
+
+    return dialogRef.afterClosed();
   }
 
   viewBookDetails(bookId: string) {

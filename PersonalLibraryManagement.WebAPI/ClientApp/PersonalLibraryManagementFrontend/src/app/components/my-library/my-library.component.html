@@ -140,13 +140,13 @@
         </div>
       </form>
     </div>
-    <section *ngIf="isLoading$ | async">
-      <div class="flex flex-wrap items-center justify-center h-40">
-        <mat-progress-spinner [diameter]="30"></mat-progress-spinner>
+    <section *ngIf="isLoading$.value">
+      <div class="flex flex-wrap items-center justify-center h-60">
+        <mat-spinner [diameter]="50"></mat-spinner>
       </div>
     </section>
     <section
-      *ngIf="isLoading$.getValue() === false && booklist.length > 0"
+      *ngIf="isLoading$.value === false && booklist.length > 0"
       class="text-gray-600 body-font">
       <div class="container mx-auto">
         <div class="flex flex-wrap">
@@ -193,6 +193,7 @@
                     ></mat-button-toggle
                   >
                   <mat-button-toggle
+                    (click)="onClickDelete(book)"
                     value="underline"
                     class="opacity-0 group-hover:opacity-100 transition-opacity w-full"
                     ><mat-icon color="warn">delete</mat-icon></mat-button-toggle
