@@ -22,55 +22,45 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBook([FromBody] BookDTO bookDto)
+        public async Task<Response> CreateBook([FromBody] BookDTO bookDto)
         {
-            Book book = mapper.Map<Book>(bookDto);
-
-            Response response = await bookService.AddBookAsync(book);
-
-            return Ok(response);
+            return await bookService.AddBookAsync(mapper.Map<Book>(bookDto));
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCategory([FromQuery] string searchKey)
+        public async Task<Response> GetAllCategory([FromQuery] string searchKey)
         {
-            Response response = await bookService.GetAllCategory(searchKey);
-
-            return Ok(response);
+            return await bookService.GetAllCategory(searchKey);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBook([FromBody] BookDTO bookDto)
+        public async Task<Response> UpdateBook([FromBody] BookDTO bookDto)
         {
-            Book book = mapper.Map<Book>(bookDto);
+            return await bookService.UpdateBookAsync(mapper.Map<Book>(bookDto));
+        }
 
-            Response response = await bookService.UpdateBookAsync(book);
-
-            return Ok(response);
+        [HttpDelete("{id}")]
+        public async Task<Response> DeleteBook([FromRoute] string id)
+        {
+            return await bookService.DeleteBookAsync(id);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBooks([FromQuery] GetAllBooksQueryFilter queryFilter)
+        public async Task<QueryPaginatedResponseDto> GetAllBooks([FromQuery] GetAllBooksQueryFilter queryFilter)
         {
-            QueryPaginatedResponseDto result = await bookService.GetAllBooksByUserId(queryFilter);
-
-            return Ok(result);
+            return await bookService.GetAllBooksByUserId(queryFilter);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllWriters([FromQuery] string searchKey)
+        public async Task<Response> GetAllWriters([FromQuery] string searchKey)
         {
-            Response response = await bookService.GetAllWriters(searchKey);
-
-            return Ok(response);
+            return await bookService.GetAllWriters(searchKey);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookDetails([FromRoute] string id)
+        public async Task<Book> GetBookDetails([FromRoute] string id)
         {
-            Book book = await bookService.GetBookDetailsById(id);
-
-            return Ok(book);
+            return await bookService.GetBookDetailsById(id);
         }
     }
 }

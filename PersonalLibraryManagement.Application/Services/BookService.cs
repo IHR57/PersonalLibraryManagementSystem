@@ -5,7 +5,6 @@ using PersonalLibraryManagement.Application.Contracts.Persistence;
 using PersonalLibraryManagement.Application.DTOs;
 using PersonalLibraryManagement.Application.DTOs.Response;
 using PersonalLibraryManagement.Domain.Entities;
-using System.Runtime.InteropServices;
 
 namespace PersonalLibraryManagement.Application.Services
 {
@@ -22,7 +21,7 @@ namespace PersonalLibraryManagement.Application.Services
 
         public async Task<Response> AddBookAsync(Book book)
         {
-            Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
+            Guid userId = this.GetUserId();
 
             book.CreatedBy = userId;
             book.UserId = userId;
@@ -39,7 +38,7 @@ namespace PersonalLibraryManagement.Application.Services
 
         public async Task<Response> UpdateBookAsync(Book book)
         {
-            Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
+            Guid userId = this.GetUserId();
 
             if (book.UserId != userId)
             {
@@ -56,25 +55,44 @@ namespace PersonalLibraryManagement.Application.Services
             return response;
         }
 
+        public async Task<Response> DeleteBookAsync(string id)
+        {
+            Guid userId = this.GetUserId();
+
+            Book book = await this.GetBookDetailsById(id);
+
+            if (book.UserId != userId)
+            {
+                throw new ForbiddenAccessException();
+            }
+
+            await bookRepository.DeleteAsync(book);
+
+            Response response = new Response
+            {
+                Success = true
+            };
+
+            return response;
+        }
+
         public async Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter)
         {
-            Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
+            Guid userId = this.GetUserId();
 
             return await bookRepository.GetAllBooksByUserId(queryFilter, userId);
         }
 
         public async Task<Response> GetAllCategory(string searchKey)
         {
-            Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims
-                .FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
+            Guid userId = this.GetUserId();
 
             return await bookRepository.GetAllCategory(userId, searchKey);
         }
 
         public async Task<Response> GetAllWriters(string searchKey)
         {
-            Guid userId = Guid.Parse(httpContextAccessor.HttpContext.User.Claims
-                .FirstOrDefault(claim => claim.Type == "uid").ToString().Split(" ")[1]);
+            Guid userId = this.GetUserId();
 
             return await bookRepository.GetAllWriters(userId, searchKey);
         }
@@ -82,6 +100,14 @@ namespace PersonalLibraryManagement.Application.Services
         public async Task<Book> GetBookDetailsById(string bookId)
         {
             return await bookRepository.GetByIdAsync(Guid.Parse(bookId));
+        }
+
+        private Guid GetUserId()
+        {
+            return Guid.Parse(httpContextAccessor.HttpContext.User.Claims
+                .FirstOrDefault(claim => claim.Type == "uid")
+                .ToString()
+                .Split(" ")[1]);
         }
     }
 }

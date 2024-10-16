@@ -29,10 +29,10 @@ const routes: Routes = [
   },
   {
     path: 'my-library/book/:id',
-    component: BookDetailsComponent
+    component: BookDetailsComponent,
   },
   { path: '', redirectTo: '/my-library', pathMatch: 'full' },
-  { path: '**', redirectTo: '/my-library' }
+  { path: '**', redirectTo: '/my-library' },
 ];
 
 @NgModule({

@@ -78,6 +78,13 @@ export class LibraryService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteBook(id: string): Observable<any> {
+    return this.httpClient.delete<any>(
+      `${this.apiURL}/DeleteBook/${id}`,
+      httpOptions
+    );
+  }
+
   getBookDetailsById(id: string): Observable<any> {
     return this.httpClient
       .get(`${this.apiURL}/GetBookDetails/${id}`, httpOptions)

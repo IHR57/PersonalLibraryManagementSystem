@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { AppConstants } from '../../app.constants';
 
 @Component({
   selector: 'app-pagination',

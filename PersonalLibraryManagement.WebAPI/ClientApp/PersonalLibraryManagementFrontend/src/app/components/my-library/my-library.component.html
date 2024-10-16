@@ -145,6 +145,11 @@
         <mat-spinner [diameter]="50"></mat-spinner>
       </div>
     </section>
+    <section *ngIf="isLoading$.value === false && booklist.length === 0">
+      <div class="flex flex-wrap items-center justify-center h-60">
+        <h3>No Books Found!</h3>
+      </div>
+    </section>
     <section
       *ngIf="isLoading$.value === false && booklist.length > 0"
       class="text-gray-600 body-font">

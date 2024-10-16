@@ -9,38 +9,25 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
     public class AccountController : Controller
     {
         private readonly IAuthService authService;
-        private readonly ILogger<AccountController> logger;
 
-        public AccountController(IAuthService authService, ILogger<AccountController> logger)
+        public AccountController(IAuthService authService)
         {
             this.authService = authService;
-            this.logger = logger;
         }
 
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegistrationRequest registrationRequest)
+        public async Task<RegistrationResponse> Register([FromBody] RegistrationRequest registrationRequest)
         {
-            var result = await authService.Register(registrationRequest);
-
-            return Ok(result);
+            return await authService.Register(registrationRequest);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] AuthRequest authRequest)
+        public async Task<AuthResponse> Login([FromBody] AuthRequest authRequest)
         {
-            logger.LogInformation("Login Api Executing ...");
-
-            if (ModelState.IsValid == false)
-            {
-                return BadRequest();
-            }
-
-            var result = await authService.Login(authRequest);
-
-            return Ok(result);
+            return await authService.Login(authRequest);
         }
     }
 }

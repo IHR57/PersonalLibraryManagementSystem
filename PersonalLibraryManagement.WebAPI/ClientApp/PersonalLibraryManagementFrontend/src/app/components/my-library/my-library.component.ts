@@ -118,10 +118,10 @@ export class MyLibraryComponent {
 
   private getSelectedCategories(): string[] {
     return this.categories
-    .filter(
-      (obj: { selected: boolean; name: string }) => obj.selected == true
-    )
-    .map((obj: { selected: boolean; name: string }) => obj.name);
+      .filter(
+        (obj: { selected: boolean; name: string }) => obj.selected == true
+      )
+      .map((obj: { selected: boolean; name: string }) => obj.name);
   }
 
   private getSelectedWriters(): string[] {
@@ -167,8 +167,18 @@ export class MyLibraryComponent {
 
   onClickDelete(book: Book) {
     this.openConfirmationDialog().subscribe(result => {
-      console.log(result);
-    })
+      if (result == true) {
+        this.deleteBook(book.id);
+      }
+    });
+  }
+
+  deleteBook(id: string) {
+    this.libraryService.deleteBook(id).subscribe({
+      next: (response: any) => {
+        this.getAllBooks();
+      },
+    });
   }
 
   private openConfirmationDialog() {

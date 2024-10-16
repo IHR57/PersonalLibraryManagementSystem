@@ -10,6 +10,7 @@ namespace PersonalLibraryManagement.Application.Contracts
         Task<Response> GetAllCategory(string searchKey);
         Task<Response> GetAllWriters(string searchKey);
         Task<Response> UpdateBookAsync(Book book);
+        Task<Response> DeleteBookAsync(string id);
         Task<QueryPaginatedResponseDto> GetAllBooksByUserId(GetAllBooksQueryFilter queryFilter);
         Task<Book> GetBookDetailsById(string bookId);
     }
