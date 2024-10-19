@@ -11,6 +11,7 @@ namespace PersonalLibraryManagement.Application
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IDashboardService, DashboardService>();
 
             return services;
         }

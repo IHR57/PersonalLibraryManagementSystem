@@ -72,6 +72,45 @@ namespace PersonalLibraryManagement.Persistence.Repositories
             return response;
         }
 
+        public async Task<Response> GetYearlyTotalExpenses()
+        {
+            var result = await context.Books
+                .Where(book => book.BoughtDate.HasValue)
+                .GroupBy(book => book.BoughtDate.Value.Year)
+                .Select(x => new YearlyExpenseResponse
+                {
+                    Year = x.Key.ToString(),
+                    TotalExpenses = x.Sum(book => book.BuyingPrice)
+                })
+                .OrderBy(y => y.Year)
+                .ToListAsync();
+
+            return new Response
+            {
+                Success = true,
+                Result = result
+            };
+        }
+
+        public async Task<Response> GetTotalCategoryWiseExpenses()
+        {
+            var result = await context.Books
+                .GroupBy(book => book.Category)
+                .Select(x => new CategoryWiseExpenseResponse
+                {
+                    CategoryName = x.Key,
+                    TotalExpenses = x.Sum(book => book.BuyingPrice)
+                })
+                .OrderBy(y => y.CategoryName)
+                .ToListAsync();
+
+            return new Response
+            {
+                Success = true,
+                Result = result
+};
+        }
+
         private IQueryable<Book> GetQuery(GetAllBooksQueryFilter queryFilter)
         {
             IQueryable<Book> query = context.Books;

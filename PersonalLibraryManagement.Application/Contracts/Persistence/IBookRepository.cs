@@ -11,5 +11,9 @@ namespace PersonalLibraryManagement.Application.Contracts.Persistence
         Task<Response> GetAllCategory(Guid userId, string searchKey);
 
         Task<Response> GetAllWriters(Guid userId, string searchKey);
+
+        Task<Response> GetYearlyTotalExpenses();
+
+        Task<Response> GetTotalCategoryWiseExpenses();
     }
 }
