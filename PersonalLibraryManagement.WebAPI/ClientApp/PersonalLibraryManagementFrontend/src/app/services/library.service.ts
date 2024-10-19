@@ -5,7 +5,6 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Book } from '../models/Book';
 
 const httpOptions = {
   headers: new HttpHeaders({

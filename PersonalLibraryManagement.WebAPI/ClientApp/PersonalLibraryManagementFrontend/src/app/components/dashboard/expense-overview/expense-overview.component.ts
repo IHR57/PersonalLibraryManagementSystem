@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { DashboardService } from 'src/app/services/dashboard.service';
 
 @Component({
   selector: 'app-expense-overview',
@@ -6,14 +8,19 @@ import { Component, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./expense-overview.component.scss'],
 })
 export class ExpenseOverviewComponent implements OnInit {
-
-  view: [number, number] = [700, 400]; // default view size
+  view: [number, number] = [700, 400];
+  yearWiseExpenseList$ = new BehaviorSubject<any>([]);
+  categoryWiseExpenseList$ = new BehaviorSubject<any>([]);
+  totalExpenses$ = new BehaviorSubject<number>(0);
 
   ngOnInit() {
     this.adjustChartView(window.innerWidth);
+    this.getYearlyTotalExpenses();
+    this.getCategoryWiseTotalExpenses();
   }
 
-  // Listen for window resize events
+  constructor(private dashboardService: DashboardService) {}
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.adjustChartView(event.target.innerWidth);
@@ -21,11 +28,11 @@ export class ExpenseOverviewComponent implements OnInit {
 
   adjustChartView(width: number) {
     if (width < 600) {
-      this.view = [width * 0.9, 300];  // 90% of screen width for small screens
+      this.view = [width * 0.9, 300];
     } else if (width < 1024) {
-      this.view = [width * 0.45, 300]; // 45% of screen width for medium screens
+      this.view = [width * 0.45, 300];
     } else {
-      this.view = [width * 0.35, 400]; // 45% of screen width for large screens
+      this.view = [width * 0.35, 400];
     }
   }
 
@@ -38,38 +45,33 @@ export class ExpenseOverviewComponent implements OnInit {
   showYAxisLabel = true;
   yAxisLabel = 'Money Spent';
 
-  // Bar chart data
-  single = [
-    {
-      name: '2020',
-      value: 3000,
-    },
-    {
-      name: '2021',
-      value: 5000,
-    },
-    {
-      name: '2022',
-      value: 4000,
-    },
-  ];
+  getYearlyTotalExpenses() {
+    this.dashboardService.getYearlyTotalExpenses().subscribe({
+      next: (response: any) => {
+        const mappedExpenses = response.result.map((item: any) => ({
+          name: item.year,
+          value: item.totalExpenses,
+        }));
+        this.yearWiseExpenseList$.next(mappedExpenses);
+        this.totalExpenses$.next(
+          response.result.reduce(
+            (acc: number, item: any) => acc + item.totalExpenses,
+            0
+          )
+        );
+      },
+    });
+  }
 
-  categorySpending = [
-    {
-      name: 'Books',
-      value: 1500,
-    },
-    {
-      name: 'Electronics',
-      value: 2500,
-    },
-    {
-      name: 'Clothing',
-      value: 1000,
-    },
-    {
-      name: 'Food',
-      value: 2000,
-    },
-  ];
+  getCategoryWiseTotalExpenses() {
+    this.dashboardService.getCategoryWiseTotalExpenses().subscribe({
+      next: (response: any) => {
+        const mappedExpenses = response.result.map((item: any) => ({
+          name: item.categoryName,
+          value: item.totalExpenses,
+        }));
+        this.categoryWiseExpenseList$.next(mappedExpenses);
+      },
+    });
+  }
 }
