@@ -35,6 +35,9 @@ import { UpdateBookDialogComponent } from './components/my-library/update-book-d
 import { PaginationComponent } from './shared/components/pagination/pagination.component';
 import { BookDetailsComponent } from './components/my-library/book-details/book-details.component';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
+import { DashboardMenuComponent } from './components/dashboard/dashboard-menu/dashboard-menu.component';
+import { ExpenseOverviewComponent } from './components/dashboard/expense-overview/expense-overview.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,8 @@ import { ConfirmationDialogComponent } from './shared/components/confirmation-di
     PaginationComponent,
     BookDetailsComponent,
     ConfirmationDialogComponent,
+    DashboardMenuComponent,
+    ExpenseOverviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +78,7 @@ import { ConfirmationDialogComponent } from './shared/components/confirmation-di
     MatButtonToggleModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
+    NgxChartsModule,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
