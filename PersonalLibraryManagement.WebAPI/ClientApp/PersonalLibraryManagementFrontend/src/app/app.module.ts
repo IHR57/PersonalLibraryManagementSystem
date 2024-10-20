@@ -38,6 +38,7 @@ import { ConfirmationDialogComponent } from './shared/components/confirmation-di
 import { DashboardMenuComponent } from './components/dashboard/dashboard-menu/dashboard-menu.component';
 import { ExpenseOverviewComponent } from './components/dashboard/expense-overview/expense-overview.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FileUploadComponent } from './shared/components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ConfirmationDialogComponent,
     DashboardMenuComponent,
     ExpenseOverviewComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,

@@ -63,7 +63,7 @@ export class MyLibraryComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(AddBookDialogComponent, {
-      width: '50%',
+      width: '720px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -76,7 +76,7 @@ export class MyLibraryComponent {
 
   openUpdateBookDialog(bookInfo: any) {
     const updateBookDialogRef = this.dialog.open(UpdateBookDialogComponent, {
-      width: '50%',
+      width: '720px',
       data: bookInfo,
     });
 

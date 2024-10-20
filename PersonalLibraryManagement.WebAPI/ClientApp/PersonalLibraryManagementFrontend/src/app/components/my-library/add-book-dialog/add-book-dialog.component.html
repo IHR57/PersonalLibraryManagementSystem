@@ -1,9 +1,9 @@
 <h1 mat-dialog-title class="text-sm font-bold leading-relaxed">
-  <span class="font-mono font-bold">New Book</span>
+  <span class="font-bold">New Book</span>
 </h1>
 <div mat-dialog-content>
   <form [formGroup]="bookForm" (ngSubmit)="addNewBook()" class="font-mono">
-    <mat-form-field class="w-full h-auto font-mono">
+    <mat-form-field class="w-full h-auto">
       <mat-label>Book Name</mat-label>
       <input
         matInput
@@ -12,7 +12,7 @@
         placeholder="Enter Book Name" />
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Writer</mat-label>
       <input
         type="text"
@@ -29,7 +29,7 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Category</mat-label>
       <input
         type="text"
@@ -46,7 +46,7 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Description</mat-label>
       <textarea
         matInput
@@ -55,7 +55,7 @@
         placeholder="Book Description"></textarea>
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Bought Date</mat-label>
       <input
         matInput
@@ -67,7 +67,7 @@
       <mat-datepicker #boughtDatePicker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Finished Date</mat-label>
       <input
         matInput
@@ -79,7 +79,7 @@
       <mat-datepicker #finishedDatePicker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Buying Price</mat-label>
       <input
         matInput
@@ -89,7 +89,7 @@
         placeholder="Enter Buying Price" />
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Read Status</mat-label>
       <mat-select formControlName="status">
         <mat-option value="1">Pending</mat-option>
@@ -98,7 +98,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Personal Rating</mat-label>
       <input
         matInput
@@ -108,7 +108,7 @@
         placeholder="Your Rating out of 10" />
     </mat-form-field>
 
-    <mat-form-field class="w-full font-mono">
+    <mat-form-field class="w-full">
       <mat-label>Personal Notes</mat-label>
       <textarea
         matInput
@@ -123,13 +123,13 @@
     mat-flat-button
     color="primary"
     (click)="addNewBook()"
-    class="md:basis-1/4 sm:basis-1/2 font-mono"
+    class="md:basis-1/4 sm:basis-1/2"
     [disabled]="isAddingBook$ | async">
     Submit
   </button>
   <button
     mat-stroked-button
-    class="md:basis-1/4 sm:basis-1/2 font-mono"
+    class="md:basis-1/4 sm:basis-1/2"
     mat-dialog-close
     [disabled]="isAddingBook$ | async">
     Cancel
