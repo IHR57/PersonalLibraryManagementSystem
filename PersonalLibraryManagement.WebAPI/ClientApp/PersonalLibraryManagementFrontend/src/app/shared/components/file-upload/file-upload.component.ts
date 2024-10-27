@@ -11,7 +11,8 @@ export class FileUploadComponent {
   fileForm: FormGroup;
   fileTypeError: boolean = false;
   allowedFileTypes: string[] = [];
-  
+  selectedFile: File | null = null;
+
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<FileUploadComponent>,
@@ -30,6 +31,7 @@ export class FileUploadComponent {
       this.fileForm.patchValue({ file });
       if (this.allowedFileTypes.includes(file.type)) {
         this.fileTypeError = false;
+        this.selectedFile = file;
       } else {
         this.fileTypeError = true;
       }
@@ -38,7 +40,7 @@ export class FileUploadComponent {
 
   onSubmit() {
     if (this.fileForm.valid && !this.fileTypeError) {
-      this.closeModal();
+      this.dialogRef.close(this.selectedFile);
     } else {
       this.fileForm.markAllAsTouched();
     }

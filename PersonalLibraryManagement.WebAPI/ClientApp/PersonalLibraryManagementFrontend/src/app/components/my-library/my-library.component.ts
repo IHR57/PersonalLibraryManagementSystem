@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Book } from 'src/app/models/Book';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-my-library',
@@ -42,7 +43,7 @@ export class MyLibraryComponent {
   startValue = 0;
   endValue = 2000;
 
-  isAscending = true;
+  isAscending = false;
   searchKey = new FormControl('');
 
   constructor(
@@ -70,9 +71,37 @@ export class MyLibraryComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+    dialogRef.afterClosed().subscribe((file: File | null) => {
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const binaryData = e.target.result;
+          const workbook = XLSX.read(binaryData, { type: 'binary', cellDates: true });
 
+          const sheetName = workbook.SheetNames[0];
+          const sheet = workbook.Sheets[sheetName];
+
+          const data = XLSX.utils.sheet_to_json(sheet);
+          console.log(data);
+          const dataList = data.map((row: any) => {
+            return {
+               name: row['Book Name'],
+               writer: row['Writer'],
+               category: row['Category'],
+               description: row['Description'],
+               boughtDate:  row['Bought Date'] instanceof Date ? row['Bought Date'] : new Date(row['Bought Date']),
+               personalNotes: row['Personal Notes'],
+               personalRating: row['Personal Rating'],
+               buyingPrice: row['Buying Price'],
+               finishedDate: row['Finished Date'],
+               status: row['Read Status']
+            };
+          });
+
+          console.log(dataList);
+        };
+
+        reader.readAsBinaryString(file);
       }
     })
   }
