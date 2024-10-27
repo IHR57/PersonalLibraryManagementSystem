@@ -9,6 +9,7 @@ import { AppConstants } from 'src/app/shared/app.constants';
 import { Router } from '@angular/router';
 import { Book } from 'src/app/models/Book';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
 
 @Component({
   selector: 'app-my-library',
@@ -59,6 +60,21 @@ export class MyLibraryComponent {
   onPageChange($event: any) {
     this.currentPageIndex = $event;
     this.getAllBooks($event);
+  }
+
+  onClickUploadBooks() {
+    const dialogRef = this.dialog.open(FileUploadComponent, {
+      width: '600px',
+      data: {
+        allowedFileTypes: ['text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    })
   }
 
   openDialog() {
