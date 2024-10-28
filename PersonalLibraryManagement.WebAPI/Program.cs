@@ -4,6 +4,8 @@ using PersonalLibraryManagement.Application.Common.Filters;
 using PersonalLibraryManagement.Identity;
 using PersonalLibraryManagement.Infrastructure.Persistence;
 using Serilog;
+using Hangfire;
+using Hangfire.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,20 @@ builder.Services.Configure<JsonOptions>(options =>
 {
     options.SerializerOptions.PropertyNameCaseInsensitive = false;
 });
+
+var connectionString = builder.Configuration.GetConnectionString("PersonalLibraryManagmentConnectionString");
+builder.Services.AddHangfire(config =>
+{
+    config.UseSqlServerStorage(connectionString, new SqlServerStorageOptions
+    {
+        CommandBatchMaxTimeout = TimeSpan.FromMinutes(15),
+        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+        QueuePollInterval = TimeSpan.Zero,
+        UseRecommendedIsolationLevel = true,
+        DisableGlobalLocks = true,
+    });
+});
+builder.Services.AddHangfireServer();
 
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
@@ -78,5 +94,7 @@ app.UseAuthorization();
 app.UseWebSockets();
 
 app.MapControllers();
+
+app.UseHangfireDashboard("/hangfire");
 
 app.Run();

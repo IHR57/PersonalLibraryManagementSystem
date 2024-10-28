@@ -212,13 +212,13 @@ export class MyLibraryComponent {
 
   onClickDelete(book: Book) {
     this.openConfirmationDialog().subscribe(result => {
-      if (result == true) {
+      if (result) {
         this.deleteBook(book.id);
       }
     });
   }
 
-  deleteBook(id: string) {
+  private deleteBook(id: string) {
     this.libraryService.deleteBook(id).subscribe({
       next: (response: any) => {
         this.getAllBooks();
