@@ -95,6 +95,12 @@ app.UseWebSockets();
 
 app.MapControllers();
 
-app.UseHangfireDashboard("/hangfire");
+app.UseHangfireDashboard("/hangfire",
+    new DashboardOptions
+    {
+        IgnoreAntiforgeryToken = true,
+        AppPath = null,
+        IsReadOnlyFunc = _ => false,
+    });
 
 app.Run();

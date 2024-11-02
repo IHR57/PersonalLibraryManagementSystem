@@ -14,11 +14,16 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
     {
         private readonly IBookService bookService;
         private readonly IMapper mapper;
+        private readonly IBackgroundJobService backgroundJobService;
 
-        public BookController(IBookService bookService, IMapper mapper)
+        public BookController(
+            IBookService bookService, 
+            IMapper mapper, 
+            IBackgroundJobService backgroundJobService)
         {
             this.bookService = bookService;
             this.mapper = mapper;
+            this.backgroundJobService = backgroundJobService;
         }
 
         [HttpPost]
@@ -61,6 +66,24 @@ namespace PersonalLibraryManagement.WebAPI.Controllers
         public async Task<Book> GetBookDetails([FromRoute] string id)
         {
             return await bookService.GetBookDetailsById(id);
+        }
+
+        [HttpPost]
+        public Response UploadBooks([FromBody] List<BookDTO> books)
+        {
+            return backgroundJobService.CreateNewJob(mapper.Map<List<Book>>(books));
+        }
+
+        [HttpGet]
+        public IActionResult JobStatus([FromQuery] string jobId)
+        {
+            return Ok(this.backgroundJobService.GetJobStatus(jobId));
+        }
+
+        [HttpPost("{jobId}")]
+        public Response Reprocess([FromRoute] string jobId)
+        {
+            return this.backgroundJobService.ReprocessFailedJob(jobId);
         }
     }
 }

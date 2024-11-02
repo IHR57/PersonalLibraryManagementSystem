@@ -44,5 +44,11 @@ namespace PersonalLibraryManagement.Persistence.Repositories
             context.Entry(entity).State = EntityState.Modified;
             await context.SaveChangesAsync();
         }
+
+        public async Task AddListItemAsync(List<T> entities)
+        {
+            context.Set<T>().AddRange(entities);
+            await context.SaveChangesAsync();
+        }
     }
 }

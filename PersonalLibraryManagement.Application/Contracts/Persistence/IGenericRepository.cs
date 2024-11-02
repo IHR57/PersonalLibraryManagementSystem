@@ -9,5 +9,6 @@ namespace PersonalLibraryManagement.Application.Contracts.Persistence
         Task DeleteAsync(T entity);
         Task<IReadOnlyList<T>> GetAsync();
         Task<T> GetByIdAsync(Guid id);
+        Task AddListItemAsync(List<T> entities);
     }
 }
